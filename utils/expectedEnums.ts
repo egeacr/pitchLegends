@@ -8,3 +8,8 @@ export enum pageURL {
     HOMEPAGE = "https://pitchlegends.com/",
     REGISTERPAGE = "https://play.pitchlegends.com/auth/register"
 }
+
+export enum login {
+    MAIL = 'test@testcompany.com',
+    PASSWORD = 'invalidPassword123.'
+}
