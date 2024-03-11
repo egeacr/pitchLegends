@@ -11,17 +11,25 @@ export class RegisterPage extends BasePage{
     private emailInput: Locator
     private passwordInput: Locator
     private registerButton: Locator
+    private cookieModal: Locator
+    private acceptAllCookiesButton: Locator
+    private errorMessage: Locator
+    private termsAndPrivacyCheckbox: Locator
 
 
 
     constructor(page: Page) {
         super(page)
         this.page = page
-        this.signInButton = page.locator("//a[@href='/auth/login']")
-        this.nameInput = page.getByRole('textbox', {name:'name'})
+        this.signInButton = page.getByRole('link', { name: 'Already have an account? Sign in' })
+        this.nameInput = page.getByRole('textbox', {name:'Name'})
         this.emailInput = page.getByRole('textbox', {name:'email'})
         this.passwordInput = page.getByRole('textbox', {name:'password'})
-        this.passwordInput = page.getByRole('button', {name:'Register'})
+        this.registerButton = page.getByRole('button', {name:'Register'})
+        this.cookieModal = page.locator('#cf_modal_title')
+        this.acceptAllCookiesButton = page.getByRole('button', {name:' Accept all  '})
+        this.errorMessage = page.locator('span.input-label')
+        this.termsAndPrivacyCheckbox = page.locator('#terms_and_privacy')
 
     }
 
@@ -40,6 +48,21 @@ export class RegisterPage extends BasePage{
     async fillPasswordField(password:string){
         await this.passwordInput.fill(password)
     }
+
+    async clickRegisterButton(){
+        await this.registerButton.click()
+    }
     
-    
+    async acceptAllCookies() {
+        await this.cookieModal.waitFor()
+        await this.acceptAllCookiesButton.click()
+    }
+
+    async getErrorMessage() {
+        return await this.errorMessage.textContent()
+    }
+
+    async checkTermsAndPrivacy() {
+        await this.termsAndPrivacyCheckbox.check()
+    }
 }

@@ -11,7 +11,7 @@ export class HomePage extends BasePage{
     constructor(page: Page) {
         super(page)
         this.page = page
-        this.firstPlayForFreeButton = page.locator("//*[contains(@class, 'register' )]//a").first()
+        this.firstPlayForFreeButton = page.getByRole('link', { name: 'PLAY FREE' })
         this.secondPlayForFreeButton = page.locator("//*[contains(@class, 'register' )]//a").nth(2)
     }
 
@@ -22,6 +22,7 @@ export class HomePage extends BasePage{
     async openRegisterPage(){
         await this.firstPlayForFreeButton.waitFor() //waitFor default parameter == 'visible'
         await this.firstPlayForFreeButton.click()
+        await this.page.waitForURL('**/auth/register')
     }
 
 

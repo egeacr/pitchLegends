@@ -17,8 +17,7 @@ export class LoginPage extends BasePage {
         this.emailInput = page.getByPlaceholder('Email')
         this.passwordInput = page.getByPlaceholder('Password')
         this.invalidUserNameOrPasswordAlert = page.locator("//*[@role='alert']//span")
-        this.playFreeButton = page.getByRole('link', { name: 'PLAY FREE' })
-        this.signInButton = page.getByRole('link', { name: 'Already have an account? Sign in' })
+       
     }
 
     //Fill the input fields
@@ -30,17 +29,10 @@ export class LoginPage extends BasePage {
     //Click on Login Button
     async clickLoginButton() {
         await this.loginButton.click()
+        await this.page.waitForTimeout(1500)
+        //this timeout should be deleted 
     }
 
-    //Click PlayFree Button
-    async clickPlayFreeButton() {
-        await this.playFreeButton.click()
-    }
-
-    //Click SignInButton
-    async clickSignInButton() {
-        await this.signInButton.click()
-    }
     //Assert invalid message
     async getInvalidEmailOrPasswordAlertText() {
         return await this.invalidUserNameOrPasswordAlert.textContent()
