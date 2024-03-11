@@ -26,8 +26,8 @@ export class RegisterPage extends BasePage{
         this.emailInput = page.getByRole('textbox', {name:'email'})
         this.passwordInput = page.getByRole('textbox', {name:'password'})
         this.registerButton = page.getByRole('button', {name:'Register'})
-        this.cookieModal = page.locator('#cf_modal_title')
-        this.acceptAllCookiesButton = page.getByRole('button', {name:' Accept all  '})
+        this.cookieModal = page.locator('.cf_consent-buttons')
+        this.acceptAllCookiesButton = page.locator('.cf_button cf_button--accept')
         this.errorMessage = page.locator('span.input-label')
         this.termsAndPrivacyCheckbox = page.locator('#terms_and_privacy')
 
@@ -55,7 +55,10 @@ export class RegisterPage extends BasePage{
     
     async acceptAllCookies() {
         await this.cookieModal.waitFor()
-        await this.acceptAllCookiesButton.click()
+        await this.cookieModal.click()
+        await this.page.keyboard.press('Escape');
+
+        //await this.acceptAllCookiesButton.click()
     }
 
     async getErrorMessage() {

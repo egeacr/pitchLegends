@@ -17,11 +17,11 @@ export class LoginPage extends BasePage {
         this.emailInput = page.getByPlaceholder('Email')
         this.passwordInput = page.getByPlaceholder('Password')
         this.invalidUserNameOrPasswordAlert = page.locator("//*[@role='alert']//span")
-       
     }
 
     //Fill the input fields
     async loginWithCredentials(username: string, password: string) {
+        await this.page.waitForTimeout(1000)
         await this.emailInput.fill(username)
         await this.passwordInput.fill(password)
     }
