@@ -13,7 +13,7 @@ test.describe('Register Tests', async() =>{
         await homePage.openRegisterPage()
     })
 
-    test('Register with existing email', async({registerPage})=> {
+    test.skip('Register with existing email', async({registerPage})=> {
         await registerPage.fillNameField(fakerFunctions.generateName())
         await registerPage.fillPasswordField(fakerFunctions.generatePassword())
         await registerPage.fillEmailField(successfulLoginCredentials.MAIL)

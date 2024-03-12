@@ -1,7 +1,6 @@
 on:
-   push:
-     branches:
-     - main
+  schedule:
+    - cron: '0 12,18,23 * * *' # Her gün saat 12:00, 18:00 ve 23:59'da çalıştır
 
 jobs:
   tests_e2e:
