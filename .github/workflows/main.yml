@@ -1,4 +1,8 @@
 on:
+   push:
+     branches:
+     - main
+on:
   schedule:
     - cron: '0 12,18,23 * * *' # Her gün saat 12:00, 18:00 ve 23:59'da çalıştır
 
@@ -8,10 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
+
+      - name: Run Playwright tests
+        uses: microsoft/playwright-github-action@v1.5.5
+            
       - name: Install dependencies
         run: npm ci
+
       - name: Install playwright browsers
         run: npx playwright install --with-deps
+
       - name: Run tests
         run: npx playwright test
