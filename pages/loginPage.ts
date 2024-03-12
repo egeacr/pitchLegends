@@ -4,8 +4,6 @@ export class LoginPage extends BasePage {
 
     readonly page: Page
     private loginButton: Locator
-    private playFreeButton: Locator
-    private signInButton: Locator
     private emailInput: Locator
     private passwordInput: Locator
     private invalidUserNameOrPasswordAlert: Locator
