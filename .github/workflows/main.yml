@@ -1,10 +1,9 @@
 on:
-   push:
-     branches:
-     - main
-on:
+  push:
+    branches:
+      - main
   schedule:
-    - cron: '0 12,18,23 * * *' # Her gün saat 12:00, 18:00 ve 23:59'da çalıştır
+    - cron: '0 12,18,23 * * *' # Run every day at 12:00, 18:00, and 23:59
 
 jobs:
   tests_e2e:
