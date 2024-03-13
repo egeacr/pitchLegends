@@ -28,7 +28,7 @@ export enum registerPageErrorMessages {
 
 export enum loginPageInputErrorMessages {
     EMPTY_FIELD_TR = 'Lütfen bu alanı doldurun.',
-    EMPTY_FIELD_EN = 'Please fill this field.',
+    EMPTY_FIELD_EN = 'Please fill out this field.',
     SPECIAL_CHARACTER_TR = 'Lütfen e-posta adresine bir "@" işareti ekleyin.',
     SPECIAL_CHARACTER_EN = 'Please include an "@" sign in the email address.'
 }
