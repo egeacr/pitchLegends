@@ -1,8 +1,7 @@
 import { Locator, Page } from "@playwright/test";
-import BasePage from "./basePage";
+import BasePage from "../basePage/basePage";
 
-
-export class HomePage extends BasePage{
+export class HomePage extends BasePage {
 
     readonly page: Page
     private firstPlayForFreeButton: Locator
@@ -15,15 +14,13 @@ export class HomePage extends BasePage{
         this.secondPlayForFreeButton = page.locator("//*[contains(@class, 'register' )]//a").nth(2)
     }
 
-    async openHomePage(){
+    async openHomePage() {
         await this.page.goto('/')
     }
 
-    async openRegisterPage(){
+    async openRegisterPage() {
         await this.firstPlayForFreeButton.waitFor() //waitFor default parameter == 'visible'
         await this.firstPlayForFreeButton.click()
         await this.page.waitForURL('**/auth/register')
     }
-
-
 }

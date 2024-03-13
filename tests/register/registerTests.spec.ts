@@ -1,9 +1,9 @@
-import { expect } from "../fixtures/pomFixtures";
-import { test } from "../fixtures/pomFixtures";
-import { HomePage } from "../pages/homePage";
-import { RegisterPage } from "../pages/registerPage";
-import { pageTitle, pageURL, registerPageErrorMessages, successfulLoginCredentials } from "../utils/expectedEnums";
-import { fakerFunctions } from "../utils/faker";
+import { expect } from "../../fixtures/pomFixtures";
+import { test } from "../../fixtures/pomFixtures";
+import { HomePage } from "../../pages/homePage";
+import { RegisterPage } from "../../pages/registerPage";
+import { pageTitle, pageURL, registerPageErrorMessages, successfulLoginCredentials } from "../../utils/expectedEnums";
+import { fakerFunctions } from "../../utils/faker";
 
 
 test.describe('Register Tests', async() =>{

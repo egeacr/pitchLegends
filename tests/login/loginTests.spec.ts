@@ -1,7 +1,7 @@
-import { expect } from "../fixtures/pomFixtures";
-import { test } from "../fixtures/pomFixtures";
-import { pageTitle, successfulLoginCredentials, unsuccessfulLoginCredentials } from "../utils/expectedEnums";
-
+import { expect } from "../../fixtures/pomFixtures";
+import { test } from "../../fixtures/pomFixtures";
+import { pageTitle, successfulLoginCredentials, unsuccessfulLoginCredentials } from "../../utils/expectedEnums";
+import { loginPageInputErrorMessages } from "../../utils/expectedEnums";
 
 test.beforeEach(async ({ homePage, registerPage }) => {
     await homePage.openHomePage()
@@ -52,36 +52,36 @@ test.describe("Login Test Scenarios", async () => {
 
     test("Assert Empty Email field message", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
-            '',
+            unsuccessfulLoginCredentials.EMPTY_MAIL,
             successfulLoginCredentials.PASSWORD
         )
         await loginPage.clickLoginButton()
+        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.EMPTY_FIELD_EN, loginPageInputErrorMessages.EMPTY_FIELD_TR)
 
-        //TODO : Add Assertion for the empty field
     })
 
     test("Assert @ symbol in the Email field message", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
-            '',
-            successfulLoginCredentials.PASSWORD
+            unsuccessfulLoginCredentials.MAIL_WITHOUT_CHAR,
+            unsuccessfulLoginCredentials.PASSWORD
         )
         await loginPage.clickLoginButton()
+        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.SPECIAL_CHARACTER_EN, loginPageInputErrorMessages.SPECIAL_CHARACTER_TR)
 
-        //TODO : Add Assertion for the empty field
     })
 
     test("Assert Empty Password field message", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
             successfulLoginCredentials.MAIL,
-            ''
+            unsuccessfulLoginCredentials.EMPTY_PASSWORD
         )
         await loginPage.clickLoginButton()
-        //TODO : Add Assertion for the empty field
+        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.EMPTY_FIELD_EN, loginPageInputErrorMessages.EMPTY_FIELD_TR)
     })
 })
 
 test.afterEach(async ({ context }, testInfo) => {
-    //await context.close()
+    await context.close()
     console.log(`Tests - ${testInfo.title} with status =  ${testInfo.status}`)
 })
 

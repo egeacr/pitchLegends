@@ -1,5 +1,6 @@
-import { Locator, Page } from "@playwright/test";
-import BasePage from "./basePage";
+import { Locator, Page, expect } from "@playwright/test";
+import BasePage from "../basePage/basePage";
+
 export class LoginPage extends BasePage {
 
     readonly page: Page
@@ -7,6 +8,7 @@ export class LoginPage extends BasePage {
     private emailInput: Locator
     private passwordInput: Locator
     private invalidUserNameOrPasswordAlert: Locator
+    private validationMessage
 
     constructor(page: Page) {
         super(page)
@@ -34,6 +36,24 @@ export class LoginPage extends BasePage {
     //Assert invalid message
     async getInvalidEmailOrPasswordAlertText() {
         return await this.invalidUserNameOrPasswordAlert.textContent()
+    }
+
+    //Get all the input fields warning messages
+    async getAllWarningMessages() {
+        this.validationMessage = await this.page.evaluate(() => {
+            const inputField = document.querySelector('form input:invalid') as HTMLInputElement;
+            return inputField ? inputField.validationMessage : null;
+
+        });
+        console.log('Warning Message :' + this.validationMessage);
+        return this.validationMessage
+    }
+
+    //Assert the warning messages
+    async assertAllWarningMessages(warningMessageEN: string, warningMessageTR: string) {
+        const validationMessage = await this.getAllWarningMessages();
+        const errorMessagePattern = new RegExp(warningMessageEN + '|' + warningMessageTR);
+        expect(validationMessage).toMatch(errorMessagePattern);
     }
 
 }
