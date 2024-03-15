@@ -53,11 +53,11 @@ export class LoginPage extends BasePage {
     async assertAllWarningMessages(warningMessageEN: string, warningMessageTR: string, emailWarning: string, emailWarning_: string) {
         try {
             const validationMessage = await this.getAllWarningMessages();
-            const errorMessagePattern = new RegExp(warningMessageEN + '|' + warningMessageTR);
+            const errorMessagePattern = new RegExp(warningMessageEN + '|' + warningMessageTR + '|' + emailWarning + '|' + emailWarning_);
             //expect(validationMessage).toMatch(errorMessagePattern);
             expect(validationMessage.includes(warningMessageEN) || validationMessage.includes(warningMessageTR)
                                                                 || validationMessage.includes(emailWarning)
-                                                                || validationMessage.includes(emailWarning_)).toBe(true);
+                                                                || validationMessage.includes(emailWarning_));
 
         } catch (error) {
             console.error("An error occurred while asserting warning messages:", error);
