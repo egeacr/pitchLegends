@@ -1,7 +1,7 @@
 export enum pageTitle {
     HOMEPAGE = "Home | Pitchlegends",
     REGISTERPAGE = "Register - Pitch Legends",
-    TEAM_NAME = "Make your Team Name - Pitch Legends"
+    TEAM_NAME = "Home - Pitch Legends"
 }
 
 export enum pageURL {
