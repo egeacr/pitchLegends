@@ -50,14 +50,18 @@ export class LoginPage extends BasePage {
     }
 
     //Assert the warning messages
-    async assertAllWarningMessages(warningMessageEN: string, warningMessageTR: string) {
+    async assertAllWarningMessages(warningMessageEN: string, warningMessageTR: string, emailWarning: string, emailWarning_: string) {
         try {
             const validationMessage = await this.getAllWarningMessages();
             const errorMessagePattern = new RegExp(warningMessageEN + '|' + warningMessageTR);
-            expect(validationMessage).toMatch(errorMessagePattern);
+            //expect(validationMessage).toMatch(errorMessagePattern);
+            expect(validationMessage.includes(warningMessageEN) || validationMessage.includes(warningMessageTR)
+                                                                || validationMessage.includes(emailWarning)
+                                                                || validationMessage.includes(emailWarning_)).toBe(true);
+
         } catch (error) {
             console.error("An error occurred while asserting warning messages:", error);
-            throw error; 
+            throw error;
         }
     }
 

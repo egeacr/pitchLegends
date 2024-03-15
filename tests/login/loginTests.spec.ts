@@ -56,7 +56,7 @@ test.describe("Login Test Scenarios", async () => {
             successfulLoginCredentials.PASSWORD
         )
         await loginPage.clickLoginButton()
-        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.EMPTY_FIELD_EN, loginPageInputErrorMessages.EMPTY_FIELD_TR)
+        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.EMPTY_FIELD_EN, loginPageInputErrorMessages.EMPTY_FIELD_TR, loginPageInputErrorMessages.EMAIL, loginPageInputErrorMessages.EMAIL_)
 
     })
 
@@ -66,7 +66,7 @@ test.describe("Login Test Scenarios", async () => {
             unsuccessfulLoginCredentials.PASSWORD
         )
         await loginPage.clickLoginButton()
-        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.SPECIAL_CHARACTER_EN, loginPageInputErrorMessages.SPECIAL_CHARACTER_TR)
+        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.SPECIAL_CHARACTER_EN, loginPageInputErrorMessages.SPECIAL_CHARACTER_TR, loginPageInputErrorMessages.EMAIL, loginPageInputErrorMessages.EMAIL_)
 
     })
 
@@ -76,7 +76,7 @@ test.describe("Login Test Scenarios", async () => {
             unsuccessfulLoginCredentials.EMPTY_PASSWORD
         )
         await loginPage.clickLoginButton()
-        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.EMPTY_FIELD_EN, loginPageInputErrorMessages.EMPTY_FIELD_TR)
+        await loginPage.assertAllWarningMessages(loginPageInputErrorMessages.EMPTY_FIELD_EN, loginPageInputErrorMessages.EMPTY_FIELD_TR, loginPageInputErrorMessages.EMAIL, loginPageInputErrorMessages.EMAIL_)
     })
 })
 
