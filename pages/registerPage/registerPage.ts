@@ -13,6 +13,14 @@ export class RegisterPage extends BasePage {
     private acceptAllCookiesButton: Locator
     private errorMessage: Locator
     private termsAndPrivacyCheckbox: Locator
+    private googleRegisterButton: Locator
+    
+
+    //burası googleLogin'e atılabilir
+    private googleRegisterPage: Locator
+    private googleEmailInputField: Locator
+    private nextButtonAtGoogleEmailInput: Locator
+    private googlePasswordInputField: Locator
 
     constructor(page: Page) {
         super(page)
@@ -26,6 +34,12 @@ export class RegisterPage extends BasePage {
         this.acceptAllCookiesButton = page.locator('.cf_button cf_button--accept')
         this.errorMessage = page.locator('span.input-label')
         this.termsAndPrivacyCheckbox = page.locator('#terms_and_privacy')
+        this.googleRegisterButton = page.getByAltText('Login with google').locator('..')
+        this.googleRegisterPage = page.getByText('Sign in with Google')
+        this.googleEmailInputField = page.locator('#identifierId')
+        this.nextButtonAtGoogleEmailInput = page.getByRole('button', {name:'Next'})
+        this.googlePasswordInputField = page.locator("//input[@type='password']")
+    
 
     }
 
@@ -63,4 +77,24 @@ export class RegisterPage extends BasePage {
     async checkTermsAndPrivacy() {
         await this.termsAndPrivacyCheckbox.check()
     }
+
+    async clickGoogleRegisterButton() {
+        await this.googleRegisterButton.click()
+        await this.googleRegisterPage.waitFor()
+    }
+
+    async fillEmailAtGoogleRegisterPage(email:string){
+        await this.googleEmailInputField.waitFor()
+        await this.googleEmailInputField.fill(email)
+        await this.nextButtonAtGoogleEmailInput.click()
+        await this.page.waitForTimeout(1000)
+    }
+
+    async fillPasswordAtGoogleRegisterPage(password: string) {
+        await this.googlePasswordInputField.waitFor()
+        await this.googlePasswordInputField.fill('FarukOnurEge1.')
+        await this.page.keyboard.press('Enter')
+        await this.page.waitForLoadState('networkidle')
+    }
+
 }

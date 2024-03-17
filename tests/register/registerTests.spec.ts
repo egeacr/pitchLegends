@@ -1,7 +1,5 @@
 import { expect } from "../../fixtures/pomFixtures";
 import { test } from "../../fixtures/pomFixtures";
-import { HomePage } from "../../pages/homePage";
-import { RegisterPage } from "../../pages/registerPage";
 import { pageTitle, pageURL, registerPageErrorMessages, successfulLoginCredentials } from "../../utils/expectedEnums";
 import { fakerFunctions } from "../../utils/faker";
 
@@ -13,7 +11,8 @@ test.describe('Register Tests', async() =>{
         await homePage.openRegisterPage()
     })
 
-    test.skip('Register with existing email', async({registerPage})=> {
+    test('Register with existing email', async({registerPage})=> {
+        await registerPage.acceptAllCookies()
         await registerPage.fillNameField(fakerFunctions.generateName())
         await registerPage.fillPasswordField(fakerFunctions.generatePassword())
         await registerPage.fillEmailField(successfulLoginCredentials.MAIL)
@@ -21,6 +20,16 @@ test.describe('Register Tests', async() =>{
         await registerPage.clickRegisterButton()
         
         expect(await registerPage.getErrorMessage()).toBe(registerPageErrorMessages.EXISTING_MAIL)
+    })
+
+    test('Click Google Login Button', async({registerPage,loginPage})=>{
+        await registerPage.acceptAllCookies()
+        await registerPage.clickGoogleRegisterButton()
+        await registerPage.fillEmailAtGoogleRegisterPage(successfulLoginCredentials.MAIL)
+        await registerPage.fillPasswordAtGoogleRegisterPage(successfulLoginCredentials.GOOGLE_MAIL_PASSWORD)
+
+        expect(await loginPage.getPageTitle()).toBe('Home - Pitch Legends')
+
     })
 
     /*
@@ -40,10 +49,10 @@ test.describe('Register Tests', async() =>{
        
     })*/
 
-    
-
-    
-    
+    test.afterEach(async ({ context }, testInfo) => {
+        //await context.close()
+        console.log(`Tests - ${testInfo.title} with status =  ${testInfo.status}`)
+    })
     
 
     

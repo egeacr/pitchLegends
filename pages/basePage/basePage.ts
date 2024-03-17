@@ -8,6 +8,7 @@ export default class BasePage {
    }
 
    async getPageTitle(): Promise<string> {
+      await this.page.waitForURL('https://play.pitchlegends.com/')
       return await this.page.title()
    }
 

@@ -19,7 +19,8 @@ export enum unsuccessfulLoginCredentials {
 
 export enum successfulLoginCredentials {
     MAIL = 'foetestuser@gmail.com',
-    PASSWORD = 'pitchLegends'
+    PASSWORD = 'pitchLegends',
+    GOOGLE_MAIL_PASSWORD = 'FarukOnurEge1.'
 }
 
 export enum registerPageErrorMessages {
