@@ -17,30 +17,26 @@ export default class BasePage {
   }
 
   async listenConsoleErrors() {
-    const logs: {
-      message: string;
-      type: string;
-    }[] = [];
-    // Listen for all console events and handle errors
-    this.page.on("console", (msg) => {
+    const consoleErrors: any[] = [];
+    await this.page.on("console", (msg) => {
       if (msg.type() === "error") {
-        logs.push({ message: msg.text(), type: msg.type() });
+        consoleErrors.push(msg.text());
       }
     });
-    return logs;
+    return consoleErrors;
   }
 
   async listenPageErrors() {
-    const errorMsg: {
-      name: string;
-      message: string;
-    }[] = [];
-    // Listen for all console events and handle errors
-    //get the errors
-    this.page.on("pageerror", (error) => {
-      errorMsg.push({ name: error.name, message: error.message });
+    const pageErrors: any[] = [];
+    await this.page.on("pageerror", (msg) => {
+      pageErrors.push(msg);
     });
+    return pageErrors;
+  }
 
-    return errorMsg;
+  //waits for both networkidle and page load . Both in a single function
+  async waitPageLoad() {
+    await this.page.waitForLoadState("domcontentloaded");
+    await this.page.waitForLoadState("networkidle");
   }
 }
