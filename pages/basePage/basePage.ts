@@ -54,22 +54,22 @@ export default class BasePage {
   async navigateBetweenPages() {
     await this.page.goto('/')
     const navigation = this.page.getByRole('navigation');
-    
+
     // Define links to click with proper type for 'role'
     const linksToClick: { role?: "link", name?: string, text?: string }[] = [
-        { role: 'link', name: 'Gameplay' },
-        { text: 'Cards' },
-        { text: 'Story' }
+      { role: 'link', name: 'Gameplay' },
+      { text: 'Cards' },
+      { text: 'Story' }
     ];
-    
+
     for (const link of linksToClick) {
-        if (link.role && link.name) {
-            await navigation.getByRole(link.role, { name: link.name }).click();
-        } else if (link.text) {
-            await navigation.locator('li').filter({ hasText: link.text }).click();
-        }
+      if (link.role && link.name) {
+        await navigation.getByRole(link.role, { name: link.name }).click();
+      } else if (link.text) {
+        await navigation.locator('li').filter({ hasText: link.text }).click();
+      }
     }
-}
+  }
 
 
 
@@ -78,3 +78,5 @@ export default class BasePage {
     //Loading Icon Locator = //*[@class='rotating-image']
   }
 }
+
+
