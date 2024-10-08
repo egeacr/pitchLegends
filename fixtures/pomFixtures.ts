@@ -3,7 +3,9 @@ import BasePage from '../pages/basePage/basePage'
 import { RegisterPage } from '../pages/registerPage/registerPage'
 import { HomePage } from '../pages/homePage/homePage'
 import { LoginPage } from '../pages/loginPage/loginPage'
+
 import { PlayPage } from '../pages/playPage/playPage'
+import { IntroductionPage } from '../pages/introductionPage/introductionPage'
 
 
 type pages = {
@@ -12,6 +14,7 @@ type pages = {
     homePage: HomePage
     loginPage: LoginPage
     playPage: PlayPage
+    introductionPage: IntroductionPage
 }
 
 const testPages = baseTest.extend<pages>({
@@ -27,8 +30,11 @@ const testPages = baseTest.extend<pages>({
     loginPage: async({page}, use) => {
         await use(new LoginPage(page))
     },
+
     playPage: async({page}, use) => {
         await use(new PlayPage(page))
+    introductionPage: async({page}, use) => {
+        await use(new IntroductionPage(page))
     }
 })
 

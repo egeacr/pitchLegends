@@ -14,6 +14,12 @@ export class RegisterPage extends BasePage {
     private errorMessage: Locator
     private termsAndPrivacyCheckbox: Locator
     private googleRegisterButton: Locator
+    private facebookRegisterButton: Locator
+    private appleRegisterButton: Locator
+    
+
+    //play button without any info (app register the user with unique id)
+    private playWithoutAnyAccount: Locator
     
 
     //burası googleLogin'e atılabilir
@@ -34,11 +40,14 @@ export class RegisterPage extends BasePage {
         this.acceptAllCookiesButton = page.locator('.cf_button cf_button--accept')
         this.errorMessage = page.locator('span.input-label')
         this.termsAndPrivacyCheckbox = page.locator('#terms_and_privacy')
-        this.googleRegisterButton = page.getByAltText('Login with google').locator('..')
+        this.googleRegisterButton = page.getByRole('button').filter({ hasText: "Sign In with Google" });
         this.googleRegisterPage = page.getByText('Sign in with Google')
         this.googleEmailInputField = page.locator('#identifierId')
         this.nextButtonAtGoogleEmailInput = page.getByRole('button', {name:'Next'})
         this.googlePasswordInputField = page.locator("//input[@type='password']")
+        this.playWithoutAnyAccount = page.getByRole('button').filter({ hasText: "Play" });
+        this.facebookRegisterButton = page.getByRole('button').filter({ hasText: "Sign In with Facebook" });
+        this.appleRegisterButton = page.getByRole('button').filter({ hasText: "Sign In with Apple" });        
     
 
     }
@@ -80,7 +89,6 @@ export class RegisterPage extends BasePage {
 
     async clickGoogleRegisterButton() {
         await this.googleRegisterButton.click()
-        await this.googleRegisterPage.waitFor()
     }
 
     async fillEmailAtGoogleRegisterPage(email:string){
@@ -97,4 +105,19 @@ export class RegisterPage extends BasePage {
         await this.page.waitForLoadState('networkidle')
     }
 
+
+    async clickPlayButton() {
+        await this.playWithoutAnyAccount.click()
+        await this.page.waitForURL('**/introduction');
+    }
+
+    async clickFacebookRegisterButton() {
+        await this.facebookRegisterButton.click()
+        await this.page.waitForLoadState('networkidle')
+    }
+
+    async clickAppleRegisterButton() {
+        await this.appleRegisterButton.click()
+        await this.page.waitForLoadState('networkidle')
+    }
 }

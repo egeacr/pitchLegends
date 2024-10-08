@@ -15,13 +15,16 @@ export class HomePage extends BasePage {
       .nth(2);
   }
 
-  async openHomePage() {
-    await this.page.goto("/");
-  }
 
-  async openRegisterPage() {
-    await this.firstPlayForFreeButton.waitFor(); //waitFor default parameter == 'visible'
-    await this.firstPlayForFreeButton.click();
-    await this.page.waitForURL("**/auth/register");
-  }
+
+    async openHomePage() {
+        await this.page.goto('/')
+    }
+
+    async openRegisterPage() {
+        await this.firstPlayForFreeButton.waitFor() //waitFor default parameter == 'visible'
+        await this.firstPlayForFreeButton.click()
+        await this.page.waitForURL('**/auth/login')
+    }
 }
+
