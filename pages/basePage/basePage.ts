@@ -8,13 +8,16 @@ export default class BasePage {
   }
 
   async getPageTitle(): Promise<string> {
-    await this.page.waitForURL("https://play.pitchlegends.com/");
-    return await this.page.title();
-  }
+   await this.page.waitForLoadState('domcontentloaded')
+   return await this.page.title()
+}
 
-  async getPageURL(): Promise<string> {
-    return await this.page.url();
-  }
+async getPageURL(): Promise<string> {
+      
+   this.waitUntilLoadingIconDisappear()
+   await this.page.waitForLoadState('domcontentloaded')
+   return await this.page.url()
+}
 
   async listenConsoleErrors() {
     const consoleErrors: any[] = [];
@@ -39,4 +42,9 @@ export default class BasePage {
     await this.page.waitForLoadState("domcontentloaded");
     await this.page.waitForLoadState("networkidle");
   }
+
+  async waitUntilLoadingIconDisappear() {
+   await this.page.waitForSelector("//*[@class='rotating-image']", { state: 'hidden' });
+   //Loading Icon Locator = //*[@class='rotating-image']
+}
 }

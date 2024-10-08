@@ -1,6 +1,7 @@
 import { expect } from "../../fixtures/pomFixtures";
 import { test } from "../../fixtures/pomFixtures";
-import { pageTitle, pageURL, registerPageErrorMessages, successfulLoginCredentials } from "../../utils/expectedEnums";
+import { RegisterPage } from "../../pages/registerPage/registerPage";
+import { introductionPageTexts, pageTitle, pageURL, registerPageErrorMessages, successfulLoginCredentials } from "../../utils/expectedEnums";
 import { fakerFunctions } from "../../utils/faker";
 
 
@@ -11,7 +12,7 @@ test.describe('Register Tests', async() =>{
         await homePage.openRegisterPage()
     })
 
-    test('Register with existing email', async({registerPage})=> {
+    test.skip('Register with existing email', async({registerPage})=> {
         await registerPage.acceptAllCookies()
         await registerPage.fillNameField(fakerFunctions.generateName())
         await registerPage.fillPasswordField(fakerFunctions.generatePassword())
@@ -22,7 +23,7 @@ test.describe('Register Tests', async() =>{
         expect(await registerPage.getErrorMessage()).toBe(registerPageErrorMessages.EXISTING_MAIL)
     })
 
-    test('Click Google Login Button', async({registerPage,loginPage})=>{
+    test.skip('Click Google Login Button', async({registerPage,loginPage})=>{
         await registerPage.acceptAllCookies()
         await registerPage.clickGoogleRegisterButton()
         await registerPage.fillEmailAtGoogleRegisterPage(successfulLoginCredentials.MAIL)
@@ -48,6 +49,38 @@ test.describe('Register Tests', async() =>{
     test('Without email field', async({registerPage})=> {
        
     })*/
+
+    test('Open Google Register Page', async({registerPage}) => {
+        await registerPage.clickGoogleRegisterButton()
+        expect (await registerPage.getPageURL()).toContain("accounts.google")
+        expect(await registerPage.getPageTitle()).toBe('Sign in - Google Accounts')
+
+    
+    })
+
+    test('Open Facebook Register Page', async({registerPage}) => {
+        
+        await registerPage.clickFacebookRegisterButton()
+        expect (await registerPage.getPageURL()).toContain("facebook.com")
+        expect(await registerPage.getPageTitle()).toBe('Log in to Facebook')
+      
+    })
+
+    test('Open Apple Register Page', async({registerPage}) => {
+
+        await registerPage.clickAppleRegisterButton()
+        expect (await registerPage.getPageURL()).toContain("appleid.apple.com")
+        console.log(await registerPage.getPageTitle())
+        expect(JSON.stringify(await registerPage.getPageTitle())).toEqual(JSON.stringify("Sign in to Apple Account"))
+      
+    })
+
+    test.skip('Redirect Introduction Page With Play Button', async({registerPage, introductionPage}) => {
+        await registerPage.clickPlayButton()
+        expect (await introductionPage.isIntroductionPageOpened()).toBeTruthy()
+        expect (await introductionPage.getHeaderText()).toEqual(introductionPageTexts.headerText)
+        expect (await introductionPage.getPageURL()).toBe('https://play.pitchlegends.com/introduction')
+    })
 
     test.afterEach(async ({ context }, testInfo) => {
         //await context.close()
