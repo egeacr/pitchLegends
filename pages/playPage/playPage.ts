@@ -39,7 +39,7 @@ export class PlayPage extends BasePage {
         await this.confirmButton.click();
     }
 
-    async startGame(){
+    async startTheGame(){
         await this.playButton.waitFor();
         await this.playButton.click();
     }
