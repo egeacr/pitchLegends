@@ -36,3 +36,7 @@ export enum loginPageInputErrorMessages {
     SPECIAL_CHARACTER_TR = 'Lütfen e-posta adresine bir "@" işareti ekleyin.',
     SPECIAL_CHARACTER_EN = 'Please include an "@" sign in the email address.'
 }
+
+export enum introductionPageTexts {
+    headerText = "Face Julius In Your Tutorial!"
+}

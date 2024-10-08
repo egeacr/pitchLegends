@@ -21,6 +21,6 @@ export class HomePage extends BasePage {
     async openRegisterPage() {
         await this.firstPlayForFreeButton.waitFor() //waitFor default parameter == 'visible'
         await this.firstPlayForFreeButton.click()
-        await this.page.waitForURL('**/auth/register')
+        await this.page.waitForURL('**/auth/login')
     }
 }
