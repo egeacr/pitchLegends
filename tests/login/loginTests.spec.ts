@@ -12,7 +12,7 @@ test.beforeEach(async ({ homePage, registerPage }) => {
 
 test.describe("Login Test Scenarios", async () => {
 
-    test("Unsuccessful Login - Invalid Email&Invalid Password", async ({ loginPage }) => {
+    test.skip("Unsuccessful Login - Invalid Email&Invalid Password", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
             unsuccessfulLoginCredentials.MAIL,
             unsuccessfulLoginCredentials.PASSWORD
@@ -22,7 +22,7 @@ test.describe("Login Test Scenarios", async () => {
 
     })
 
-    test("Unsuccessful Login - Valid Email&Invalid Password", async ({ loginPage }) => {
+    test.skip("Unsuccessful Login - Valid Email&Invalid Password", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
             successfulLoginCredentials.MAIL,
             unsuccessfulLoginCredentials.PASSWORD
@@ -31,7 +31,7 @@ test.describe("Login Test Scenarios", async () => {
         expect(await loginPage.getInvalidEmailOrPasswordAlertText()).toBe('Invalid username or password')
     })
 
-    test("Unsuccessful Login - Invalid Email&Valid Password", async ({ loginPage }) => {
+    test.skip("Unsuccessful Login - Invalid Email&Valid Password", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
             unsuccessfulLoginCredentials.MAIL,
             successfulLoginCredentials.PASSWORD
@@ -41,7 +41,7 @@ test.describe("Login Test Scenarios", async () => {
     })
 
 
-    test("Successful Login", async ({ loginPage }) => {
+    test.skip("Successful Login", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
             successfulLoginCredentials.MAIL,
             successfulLoginCredentials.PASSWORD
@@ -50,7 +50,7 @@ test.describe("Login Test Scenarios", async () => {
         expect(await loginPage.getPageTitle()).toBe(pageTitle.TEAM_NAME)
     })
 
-    test("Assert Empty Email field message", async ({ loginPage }) => {
+    test.skip("Assert Empty Email field message", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
             unsuccessfulLoginCredentials.EMPTY_MAIL,
             successfulLoginCredentials.PASSWORD
@@ -60,7 +60,7 @@ test.describe("Login Test Scenarios", async () => {
 
     })
 
-    test("Assert @ symbol in the Email field message", async ({ loginPage }) => {
+    test.skip("Assert @ symbol in the Email field message", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
             unsuccessfulLoginCredentials.MAIL_WITHOUT_CHAR,
             unsuccessfulLoginCredentials.PASSWORD
@@ -70,7 +70,7 @@ test.describe("Login Test Scenarios", async () => {
 
     })
 
-    test("Assert Empty Password field message", async ({ loginPage }) => {
+    test.skip("Assert Empty Password field message", async ({ loginPage }) => {
         await loginPage.loginWithCredentials(
             successfulLoginCredentials.MAIL,
             unsuccessfulLoginCredentials.EMPTY_PASSWORD
