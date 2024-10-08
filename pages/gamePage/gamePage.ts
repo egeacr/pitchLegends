@@ -27,7 +27,6 @@ export class GamePage extends BasePage {
     await expect(this.quitButton).toBeVisible({ timeout: 20000 });
     await expect(this.endTurnButton).toBeVisible({ timeout: 20000 });
     await expect(this.vsIcon).toBeVisible({ timeout: 20000 });
-    await expect(this.vsIcon).toBeVisible({ timeout: 20000 });
+    await expect(this.progressBar).toBeVisible({ timeout: 20000 });
   }
-
 }
