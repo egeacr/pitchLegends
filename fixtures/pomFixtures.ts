@@ -30,9 +30,9 @@ const testPages = baseTest.extend<pages>({
     loginPage: async({page}, use) => {
         await use(new LoginPage(page))
     },
-
     playPage: async({page}, use) => {
         await use(new PlayPage(page))
+    },
     introductionPage: async({page}, use) => {
         await use(new IntroductionPage(page))
     }
