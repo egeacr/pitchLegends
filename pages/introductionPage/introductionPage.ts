@@ -8,6 +8,8 @@ export class IntroductionPage extends BasePage {
     private textHeader: Locator
     private nextButton: Locator
     private homeButton: Locator
+    private leaveButton: Locator
+    private quitButton: Locator
 
     constructor(page: Page) {
         super(page)
@@ -15,7 +17,8 @@ export class IntroductionPage extends BasePage {
         this.textHeader = page.getByText('Face Julius In Your Tutorial!')
         this.nextButton = page.locator('a[href="/game/introduction"]')
         this.homeButton = page.getByRole('link', { name: 'BACK TO HOME' })
-
+        this.leaveButton = page.getByRole('button', { name: 'Leave' })
+        this.quitButton = page.getByText('QUIT')
     }
 
     async isIntroductionPageOpened() {
@@ -27,7 +30,15 @@ export class IntroductionPage extends BasePage {
         await this.nextButton.click()
     }
 
-    async clickHomeButton(){
+    async clickLeaveButton() {
+        await this.leaveButton.click()
+    }
+
+    async clickQuitButton() {
+        await this.quitButton.click()
+    }
+
+    async clickHomeButton() {
         await this.homeButton.click()
     }
     async getHeaderText() {
