@@ -18,7 +18,7 @@ export class HomePage extends BasePage {
 
 
     async openHomePage() {
-        await this.page.goto('/')
+        await this.page.goto('https://pitchlegends.com/')
     }
 
     async openRegisterPage() {

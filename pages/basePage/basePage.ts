@@ -51,8 +51,8 @@ export default class BasePage {
   }
 
   //Navigate between page in main page
-  async navigateBetweenPages() {
-    await this.page.goto('/')
+  async navigateBetweenPages(homePage) {
+    await homePage.openHomePage()
     const navigation = this.page.getByRole('navigation');
 
     // Define links to click with proper type for 'role'
