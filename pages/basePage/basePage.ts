@@ -7,6 +7,10 @@ export default class BasePage {
     this.page = page;
   }
 
+  async goToUrl(url:string){
+    await this.page.goto(url);
+  }
+
   async getPageTitle(): Promise<string> {
     await this.page.waitForLoadState('domcontentloaded')
     return await this.page.title()
