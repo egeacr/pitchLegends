@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import BasePage from "../basePage/basePage";
-import { Solver } from "2captcha";
+//import { Solver } from "2captcha";
 
 export class RegisterPage extends BasePage {
 
@@ -100,8 +100,8 @@ export class RegisterPage extends BasePage {
     }
 
     async fillPasswordAtGoogleRegisterPage(password: string) {
-        
-        const solver = new Solver("a4f1d135d7fb5ef456263d9f031d9852")
+        /*
+       const solver = new Solver("a4f1d135d7fb5ef456263d9f031d9852")
         let pageURL = await this.getPageURL()
        
 
@@ -139,6 +139,7 @@ export class RegisterPage extends BasePage {
         await this.googlePasswordInputField.fill('FarukOnurEge1.')
         await this.page.keyboard.press('Enter')
         await this.page.waitForLoadState('networkidle')
+        */
     }
 
 

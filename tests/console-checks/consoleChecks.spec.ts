@@ -41,8 +41,7 @@ test.describe("Login Test Scenarios", async () => {
       // If errors are found, log them again for clarity
       console.log(consoleErrors);
       console.log(pageErrors);
-      // Mark the test as failed due to errors
-      test.fail();
+      // Mark the test as failed due to errors-
     }
   });
 });

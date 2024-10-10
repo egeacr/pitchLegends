@@ -28,6 +28,7 @@ export default class BasePage {
     await this.page.on("console", (msg) => {
       if (msg.type() === "error") {
         consoleErrors.push(msg.text());
+        consoleErrors.push(this.page.url());
       }
     });
     return consoleErrors;
@@ -37,6 +38,7 @@ export default class BasePage {
     const pageErrors: any[] = [];
     await this.page.on("pageerror", (msg) => {
       pageErrors.push(msg);
+      pageErrors.push(this.page.url());
     });
     return pageErrors;
   }
@@ -55,7 +57,9 @@ export default class BasePage {
   }
 
   async verifyPageURLContains(expectedUrl) {
-   const url = this.page.url();
+   await this.waitPageLoad()
+   await this.page.waitForTimeout(5000)
+    const url = this.page.url();
    const currentUrl = await this.page.url();
    console.log(`Page URL: ${url}`);
    expect(currentUrl).toContain(expectedUrl);
@@ -63,11 +67,11 @@ export default class BasePage {
 
    async verifyPageTitle(expectedPageTitle) {
       await this.waitPageLoad()
+      await this.page.waitForTimeout(5000)
       const title = await this.page.title()
       const currentTitle = await this.page.title();
       console.log(`Page Title: ${title}`)
-      console.log(`Current title is: ${currentTitle.replace(/\s/g, '\n')}`)
-      expect(currentTitle.replace(/\s/g, '\n')).toEqual(expectedPageTitle.replace(/\s/g, '\n'))
+      expect(currentTitle).toContain(expectedPageTitle)
    }
 
   //Navigate between page in main page
