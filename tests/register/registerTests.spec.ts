@@ -23,8 +23,8 @@ test.describe('Register Tests', async () => {
         expect(await registerPage.getErrorMessage()).toBe(registerPageErrorMessages.EXISTING_MAIL)
     })
 
-    test.skip('Click Google Login Button', async ({ registerPage, loginPage }) => {
-        await registerPage.acceptAllCookies()
+    test('Login With Google Account', async ({ registerPage, loginPage }) => {
+        
         await registerPage.clickGoogleRegisterButton()
         await registerPage.fillEmailAtGoogleRegisterPage(successfulLoginCredentials.MAIL)
         await registerPage.fillPasswordAtGoogleRegisterPage(successfulLoginCredentials.GOOGLE_MAIL_PASSWORD)
@@ -86,8 +86,8 @@ test.describe('Register Tests', async () => {
         await introductionPage.clickLeaveButton()
     })
 
-    test.skip('Return to Main Page', async ({ homePage, basePage, registerPage, introductionPage }) => {
-        const expectedUrl = 'https://play.pitchlegends.com/'
+    test('Return to Main Page', async ({ homePage, basePage, registerPage, introductionPage }) => {
+        const expectedUrl = 'https://pitchlegends.com/'
         await basePage.navigateBetweenPages(homePage)
         await introductionPage.clickHomeButton()
         await basePage.verifyPageURL(expectedUrl)

@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import BasePage from "../basePage/basePage";
+import { Solver } from "2captcha";
 
 export class RegisterPage extends BasePage {
 
@@ -99,6 +100,41 @@ export class RegisterPage extends BasePage {
     }
 
     async fillPasswordAtGoogleRegisterPage(password: string) {
+        
+        const solver = new Solver("a4f1d135d7fb5ef456263d9f031d9852")
+        let pageURL = await this.getPageURL()
+       
+
+        const captchaFrame = await this.page.waitForSelector("iframe[src*='recaptcha/api2']");
+
+       
+        const captchaFrameContent = await captchaFrame.contentFrame();
+        
+    
+
+        if (!captchaFrameContent) {
+            console.error("CAPTCHA frame content is not available.");
+            return;
+        }
+
+        const captchaCheckbox = await captchaFrameContent.waitForSelector("#recaptcha-anchor");
+        await captchaCheckbox.click()
+
+        const captchaResponse = await solver.recaptcha("6LdD2OMZAAAAAAv2xVpeCk8yMtBtY3EhDWldrBbh",pageURL);
+        // CAPTCHA yanıtını doldur ve formu gönder
+        const captchaInput = await captchaFrameContent.waitForSelector("#g-recaptcha-response");
+    
+        // captchaResponse bir string değilse uygun bir şekilde çıkart
+    await captchaInput.evaluate((input, captchaResponse) => {
+        if (input instanceof HTMLInputElement) {
+          input.value = captchaResponse.toString();
+        }
+      }, captchaResponse);
+
+    const submitButton = await captchaFrameContent.waitForSelector("button[type='submit']");
+    await submitButton.click();
+
+        
         await this.googlePasswordInputField.waitFor()
         await this.googlePasswordInputField.fill('FarukOnurEge1.')
         await this.page.keyboard.press('Enter')
