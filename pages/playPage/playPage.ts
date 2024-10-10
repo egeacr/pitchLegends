@@ -14,8 +14,8 @@ export class PlayPage extends BasePage {
     this.page = page;
     this.playButton = page.getByRole("button", { name: "PLAY" });
     this.randomNameButton = page.getByRole("button", { name: "RANDOM" });
-    this.confirmButton = page.getByPlaceholder("...");
-    this.nameInputField = page.getByRole("button", { name: "CONFIRM" });
+    this.nameInputField = page.getByPlaceholder("...");
+    this.confirmButton = page.getByRole("button", { name: "CONFIRM" });
     this.enterNameText = page.getByText("ENTER A NAME");
   }
 
@@ -40,8 +40,13 @@ export class PlayPage extends BasePage {
     await this.confirmButton.click();
   }
 
+  async fillName(){
+    await this.nameInputField.fill('test');
+  }
+
   async startTheGame() {
     await this.playButton.waitFor();
     await this.playButton.click();
   }
+
 }
