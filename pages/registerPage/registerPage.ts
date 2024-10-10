@@ -114,10 +114,12 @@ export class RegisterPage extends BasePage {
     async clickFacebookRegisterButton() {
         await this.facebookRegisterButton.click()
         await this.page.waitForLoadState('networkidle')
+        await this.waitUntilLoadingIconDisappear()
     }
 
     async clickAppleRegisterButton() {
         await this.appleRegisterButton.click()
         await this.page.waitForLoadState('networkidle')
+        await this.waitUntilLoadingIconDisappear()
     }
 }

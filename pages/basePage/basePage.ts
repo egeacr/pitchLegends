@@ -54,6 +54,21 @@ export default class BasePage {
     expect(currentUrl).toBe(expectedUrl);
   }
 
+  async verifyPageURLContains(expectedUrl) {
+   const url = this.page.url();
+   const currentUrl = await this.page.url();
+   console.log(`Page URL: ${url}`);
+   expect(currentUrl).toContain(expectedUrl);
+ }
+
+   async verifyPageTitle(expectedPageTitle) {
+      await this.waitPageLoad()
+      const title = await this.page.title()
+      const currentTitle = await this.page.title();
+      console.log(`Page Title: ${title}`)
+      expect(currentTitle).toEqual(expectedPageTitle)
+   }
+
   //Navigate between page in main page
   async navigateBetweenPages(homePage) {
     await homePage.openHomePage()

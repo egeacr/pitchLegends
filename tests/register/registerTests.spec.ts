@@ -33,29 +33,28 @@ test.describe('Register Tests', async () => {
 
     })
 
-    test.skip('Open Google Register Page', async ({ registerPage }) => {
+    test('Open Google Register Page', async ({ registerPage,basePage }) => {
+        const expectedPartOfURL = "accounts.google"
+        const expectedPageTitle = "Sign in - Google Accounts"
         await registerPage.clickGoogleRegisterButton()
-        expect(await registerPage.getPageURL()).toContain("accounts.google")
-        expect(await registerPage.getPageTitle()).toBe('Sign in - Google Accounts')
-
-
+        await basePage.verifyPageURLContains(expectedPartOfURL)
+        await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Open Facebook Register Page', async ({ registerPage }) => {
-
+    test('Open Facebook Register Page', async ({ registerPage,basePage }) => {
+        const expectedPartOfURL = "facebook.com"
+        const expectedPageTitle = "Log in to Facebook"
         await registerPage.clickFacebookRegisterButton()
-        expect(await registerPage.getPageURL()).toContain("facebook.com")
-        expect(await registerPage.getPageTitle()).toBe('Log in to Facebook')
-
+        await basePage.verifyPageURLContains(expectedPartOfURL)
+        await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Open Apple Register Page', async ({ registerPage }) => {
-
+    test('Open Apple Register Page', async ({ registerPage,basePage }) => {
+        const expectedPartOfURL = "appleid.apple.com"
+        const expectedPageTitle = "Sign in to Apple Account"
         await registerPage.clickAppleRegisterButton()
-        expect(await registerPage.getPageURL()).toContain("appleid.apple.com")
-        console.log(await registerPage.getPageTitle())
-        expect(JSON.stringify(await registerPage.getPageTitle())).toEqual(JSON.stringify("Sign in to Apple Account"))
-
+        await basePage.verifyPageURLContains(expectedPartOfURL)
+        await basePage.verifyPageTitle(expectedPageTitle)
     })
 
     test('Redirect Introduction Page With Play Button', async ({ basePage, registerPage, introductionPage }) => {
