@@ -22,8 +22,7 @@ export class PlayPage extends BasePage {
   async openNamePopup() {
     await this.playButton.waitFor(); //wait for play button to appear
 
-    const box = await this.playButton.boundingBox();
-    await this.page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    await this.playButton.click({force:true});
     await this.nameInputField.waitFor(); //wait for input field to appear
     await this.enterNameText.waitFor(); //wait for enter name text to appear
     await this.randomNameButton.waitFor(); //wait for random name generator button
