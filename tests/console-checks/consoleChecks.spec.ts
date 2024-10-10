@@ -42,7 +42,7 @@ test.describe("Login Test Scenarios", async () => {
       console.log(consoleErrors);
       console.log(pageErrors);
       // Mark the test as failed due to errors
-      //test.fail();
+      test.fail();
     }
   });
 });
