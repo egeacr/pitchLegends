@@ -2,7 +2,14 @@ import { expect } from "../../fixtures/pomFixtures";
 import { test } from "../../fixtures/pomFixtures";
 
 test.describe("Login Test Scenarios", async () => {
-  test("Listening console errors", async ({ homePage }) => {
+  test("Listening console errors", async ({
+    homePage,
+    gamePage,
+    introductionPage,
+    registerPage,
+    playPage,
+    loginPage,
+  }) => {
     // Listen for console errors and page errors
     const consoleErrors = await homePage.listenConsoleErrors();
     const pageErrors = await homePage.listenPageErrors();
@@ -13,9 +20,21 @@ test.describe("Login Test Scenarios", async () => {
     // Wait for the page to fully load
     await homePage.waitPageLoad();
 
-    // Log the collected console and page errors
-    await console.log(consoleErrors);
-    await console.log(pageErrors);
+    //go to register page
+
+    await homePage.openRegisterPage();
+
+    //wait for page load
+    await homePage.waitPageLoad();
+    
+    await registerPage.clickPlayButton()
+
+    await homePage.waitPageLoad();
+
+    await introductionPage.clickNextButton();
+
+    await homePage.waitPageLoad();
+
 
     // Check if there are any console or page errors
     if (consoleErrors.length > 0 || pageErrors.length > 0) {
