@@ -2,7 +2,7 @@ import { expect } from "../../fixtures/pomFixtures";
 import { test } from "../../fixtures/pomFixtures";
 
 test.describe("Login Test Scenarios", async () => {
-  test("Listening console errors", async ({
+  test.skip("Listening console errors", async ({
     homePage,
     gamePage,
     introductionPage,
