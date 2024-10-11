@@ -40,15 +40,15 @@ test.describe('Register Tests', async () => {
         await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Open Facebook Register Page', async ({ registerPage,basePage }) => {
+    test('Open Facebook Register Page', async ({ registerPage,basePage }) => {
         const expectedPartOfURL = "facebook.com"
-        const expectedPageTitle = "Log into Facebook"
+        const expectedPageTitle = "Log in to Facebook"
         await registerPage.clickFacebookRegisterButton()
         await basePage.verifyPageURLContains(expectedPartOfURL)
         await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Open Apple Register Page', async ({ registerPage,basePage }) => {
+    test('Open Apple Register Page', async ({ registerPage,basePage }) => {
         const expectedPartOfURL = "appleid.apple.com"
         const expectedPageTitle = "Sign in to Apple Account"
         await registerPage.clickAppleRegisterButton()
