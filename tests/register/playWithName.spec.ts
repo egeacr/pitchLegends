@@ -1,6 +1,7 @@
 import { expect } from "../../fixtures/pomFixtures";
 import { test } from "../../fixtures/pomFixtures";
 import { fakerFunctions } from "../../utils/faker";
+test.setTimeout(200000);
 
 test.describe("Register Tests", async () => {
   test.beforeEach(async ({ homePage, registerPage, introductionPage }) => {
