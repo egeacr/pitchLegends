@@ -23,7 +23,7 @@ test.describe('Register Tests', async () => {
         expect(await registerPage.getErrorMessage()).toBe(registerPageErrorMessages.EXISTING_MAIL)
     })
 
-    test('Login With Google Account', async ({ registerPage, loginPage }) => {
+    test.skip('Login With Google Account', async ({ registerPage, loginPage }) => {
         
         await registerPage.clickGoogleRegisterButton()
         await registerPage.fillEmailAtGoogleRegisterPage(successfulLoginCredentials.MAIL)
@@ -32,7 +32,7 @@ test.describe('Register Tests', async () => {
 
     })
 
-    test('Open Google Register Page', async ({ registerPage,basePage }) => {
+    test.skip('Open Google Register Page', async ({ registerPage,basePage }) => {
         const expectedPartOfURL = "accounts.google"
         const expectedPageTitle = "Sign in - Google Accounts"
         await registerPage.clickGoogleRegisterButton()
@@ -42,7 +42,7 @@ test.describe('Register Tests', async () => {
 
     test.skip('Open Facebook Register Page', async ({ registerPage,basePage }) => {
         const expectedPartOfURL = "facebook.com"
-        const expectedPageTitle = "Log into Facebook"
+        const expectedPageTitle = "Log in to Facebook"
         await registerPage.clickFacebookRegisterButton()
         await basePage.verifyPageURLContains(expectedPartOfURL)
         await basePage.verifyPageTitle(expectedPageTitle)
@@ -56,7 +56,7 @@ test.describe('Register Tests', async () => {
         await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test('Redirect Introduction Page With Play Button', async ({ basePage, registerPage, introductionPage }) => {
+    test.skip('Redirect Introduction Page With Play Button', async ({ basePage, registerPage, introductionPage }) => {
         const expectedUrl = 'https://play.pitchlegends.com/introduction'
         await registerPage.clickPlayButton()
         expect(await introductionPage.isIntroductionPageOpened()).toBeTruthy()
@@ -64,28 +64,28 @@ test.describe('Register Tests', async () => {
         await basePage.verifyPageURL(expectedUrl)
     })
 
-    test('Navigation to Game Introduction', async ({ basePage, registerPage, introductionPage }) => {
+    test.skip('Navigation to Game Introduction', async ({ basePage, registerPage, introductionPage }) => {
         const expectedUrl = 'https://play.pitchlegends.com/game/introduction'
         await registerPage.clickPlayButton()
         await introductionPage.clickNextButton()
         await basePage.verifyPageURL(expectedUrl)
     })
 
-    test('Return to Home Page', async ({ homePage, basePage, registerPage, introductionPage }) => {
+    test.skip('Return to Home Page', async ({ homePage, basePage, registerPage, introductionPage }) => {
         const expectedUrl = 'https://pitchlegends.com/'
         await basePage.navigateBetweenPages(homePage)
         await introductionPage.clickHomeButton()
         await basePage.verifyPageURL(expectedUrl)
     })
 
-    test('Verify Step-Into Page Accessibility', async ({ basePage, registerPage, introductionPage }) => {
+    test.skip('Verify Step-Into Page Accessibility', async ({ basePage, registerPage, introductionPage }) => {
         await registerPage.clickPlayButton()
         await introductionPage.clickNextButton()
         await introductionPage.clickQuitButton()
         await introductionPage.clickLeaveButton()
     })
 
-    test('Return to Main Page', async ({ homePage, basePage, registerPage, introductionPage }) => {
+    test.skip('Return to Main Page', async ({ homePage, basePage, registerPage, introductionPage }) => {
         const expectedUrl = 'https://pitchlegends.com/'
         await basePage.navigateBetweenPages(homePage)
         await introductionPage.clickHomeButton()

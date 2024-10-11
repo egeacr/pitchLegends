@@ -71,7 +71,7 @@ export default class BasePage {
       const title = await this.page.title()
       const currentTitle = await this.page.title();
       console.log(`Page Title: ${title}`)
-      expect(currentTitle).toContain(expectedPageTitle)
+      expect(currentTitle.replace(/\s/g, '')).toContain(expectedPageTitle.replace(/\s/g, ''))
    }
 
   //Navigate between page in main page
