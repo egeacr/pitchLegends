@@ -22,8 +22,7 @@ export class PlayPage extends BasePage {
   async openNamePopup() {
     await this.page.waitForSelector('#playButton', { state: 'visible' });
     await this.page.getByText('9Play0ArenaBURN&').press('Tab');
-    await this.page.getByRole('button', { name: 'Play' }).press('Enter');
-    await this.nameInputField.waitFor(); //wait for input field to appear
+    await this.playButton.press('Enter');
     await this.enterNameText.waitFor(); //wait for enter name text to appear
     await this.randomNameButton.waitFor(); //wait for random name generator button
   }
