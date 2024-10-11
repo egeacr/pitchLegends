@@ -13,7 +13,7 @@ export class PlayPage extends BasePage {
     super(page);
     this.page = page;
     this.playButton = page.locator(
-      "xpath=/html/body/div[2]/div[1]/div[2]/button/p"
+      "//p[normalize-space()='Play']//ancestor::button"
     );
     this.randomNameButton = page.getByRole("button", { name: "RANDOM" });
     this.nameInputField = page.getByPlaceholder("...");

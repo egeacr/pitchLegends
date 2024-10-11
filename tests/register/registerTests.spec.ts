@@ -7,7 +7,9 @@ import { fakerFunctions } from "../../utils/faker";
 
 test.describe('Register Tests', async () => {
 
-    test.beforeEach(async ({ homePage, registerPage }) => {
+    test.beforeEach(async ({ homePage, registerPage,basePage }) => {
+        
+        await basePage.getLocalIP()
         await homePage.openHomePage()
         await homePage.openRegisterPage()
     })
@@ -32,7 +34,7 @@ test.describe('Register Tests', async () => {
 
     })
 
-    test.skip('Open Google Register Page', async ({ registerPage,basePage }) => {
+    test('Open Google Register Page', async ({ registerPage,basePage }) => {
         const expectedPartOfURL = "accounts.google"
         const expectedPageTitle = "Sign in - Google Accounts"
         await registerPage.clickGoogleRegisterButton()
@@ -40,7 +42,7 @@ test.describe('Register Tests', async () => {
         await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Open Facebook Register Page', async ({ registerPage,basePage }) => {
+    test('Open Facebook Register Page', async ({ registerPage,basePage }) => {
         const expectedPartOfURL = "facebook.com"
         const expectedPageTitle = "Log in to Facebook"
         await registerPage.clickFacebookRegisterButton()
@@ -48,7 +50,7 @@ test.describe('Register Tests', async () => {
         await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Open Apple Register Page', async ({ registerPage,basePage }) => {
+    test('Open Apple Register Page', async ({ registerPage,basePage }) => {
         const expectedPartOfURL = "appleid.apple.com"
         const expectedPageTitle = "Sign in to Apple Account"
         await registerPage.clickAppleRegisterButton()

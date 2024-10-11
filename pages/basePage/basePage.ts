@@ -1,4 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { networkInterfaces } from "os";
+import { promises as fs } from 'fs';
+
 
 export default class BasePage {
   readonly page: Page;
@@ -101,6 +104,25 @@ export default class BasePage {
     await this.page.waitForSelector("//*[@class='rotating-image']", { state: 'hidden' });
     //Loading Icon Locator = //*[@class='rotating-image']
   }
+
+
+  async getLocalIP() {
+    const nets = networkInterfaces();
+    let localIP;
+    const filePath = 'utils/IPAddresses.txt';
+  
+    for (const name of Object.keys(nets)) {
+      for (const net of nets[name]!) {
+        if (net.family === 'IPv4' && !net.internal) {
+          localIP = net.address;
+          console.log(`IP Address is: ${localIP}`)
+          await fs.appendFile(filePath, `${localIP}\n`);
+          break;
+        }
+      }
+    }
+  }
+
 }
 
 
