@@ -21,8 +21,12 @@ export class PlayPage extends BasePage {
 
   async openNamePopup() {
     await this.playButton.waitFor(); //wait for play button to appear
-    await this.playButton.dispatchEvent("click");
-    await this.playButton.click({force:true});
+
+    while (!(await this.nameInputField.isVisible())) {
+      await this.playButton.dispatchEvent("click");
+      await this.playButton.click({ force: true });
+    }
+
     await this.nameInputField.waitFor(); //wait for input field to appear
     await this.enterNameText.waitFor(); //wait for enter name text to appear
     await this.randomNameButton.waitFor(); //wait for random name generator button
@@ -39,13 +43,12 @@ export class PlayPage extends BasePage {
     await this.confirmButton.click();
   }
 
-  async fillName(){
-    await this.nameInputField.fill('test');
+  async fillName() {
+    await this.nameInputField.fill("test");
   }
 
   async startTheGame() {
     await this.playButton.waitFor();
     await this.playButton.click();
   }
-
 }
