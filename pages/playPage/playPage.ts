@@ -20,9 +20,16 @@ export class PlayPage extends BasePage {
   }
 
   async openNamePopup() {
-    await this.page.waitForTimeout(3000)
-    await this.playButton.waitFor(); //wait for play button to appear
-    await this.playButton.click({force: true});
+    await this.page.waitForSelector('#playButton', { state: 'visible' });
+    await this.playButton.waitFor({state:"attached"});
+    await this.page.evaluate(() => {
+      const playButton = document.getElementById('playButton');
+      if (playButton) {
+          playButton.click();
+      } else {
+          throw new Error("Play button not found");
+      }
+  });
     await this.nameInputField.waitFor(); //wait for input field to appear
     await this.enterNameText.waitFor(); //wait for enter name text to appear
     await this.randomNameButton.waitFor(); //wait for random name generator button
