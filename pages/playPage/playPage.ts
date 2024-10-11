@@ -12,7 +12,9 @@ export class PlayPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.page = page;
-    this.playButton = page.locator("xpath=/html/body/div[2]/div[1]/div[2]/button/p");
+    this.playButton = page.locator(
+      "xpath=/html/body/div[2]/div[1]/div[2]/button/p"
+    );
     this.randomNameButton = page.getByRole("button", { name: "RANDOM" });
     this.nameInputField = page.getByPlaceholder("...");
     this.confirmButton = page.getByRole("button", { name: "CONFIRM" });
@@ -21,9 +23,7 @@ export class PlayPage extends BasePage {
 
   async openNamePopup() {
     await this.playButton.waitFor(); //wait for play button to appear
-
     await this.playButton.dispatchEvent("click");
-
     await this.nameInputField.waitFor(); //wait for input field to appear
     await this.enterNameText.waitFor(); //wait for enter name text to appear
     await this.randomNameButton.waitFor(); //wait for random name generator button
