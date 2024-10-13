@@ -26,8 +26,14 @@ export class PlayPage extends BasePage {
 
     await this.page.evaluate(() => {
       const element = document.querySelector('.relative.flex.justify-center.items-center.p-0');
+
+      //const element2 = document.querySelector('.box-shadow:0px 0px 1000px 1000px rgba(0, 0, 0, 0.7), inset 0px 20px 30px rgba(0, 0, 0, 0.7);filter:brightness(1.5);z-index:2');
+
+
       if (element) {
         element.classList.remove('consistently-get-big-and-small');
+        // element2.classList.remove('consistently-get-big-and-small');
+
       } else {
         console.error('Element not found!');
       }
@@ -36,7 +42,14 @@ export class PlayPage extends BasePage {
     //await this.page.getByText('9Play0ArenaBURN&').press('Tab');
     //await this.playButton.press('Enter');
 
-    await this.playButton.dispatchEvent("click");
+    // await this.playButton.dispatchEvent("click");
+
+    await expect(async () => {
+      await this.playButton.dispatchEvent("click");
+      await expect(this.page.getByText("RANDOM")).toBeVisible();
+    }).toPass({
+      intervals: [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
+    });
   }
 
   async generateRandomName() {
