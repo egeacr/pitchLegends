@@ -33,8 +33,10 @@ export class PlayPage extends BasePage {
       }
     });
 
-    await this.page.getByText('9Play0ArenaBURN&').press('Tab');
-    await this.playButton.press('Enter');
+    //await this.page.getByText('9Play0ArenaBURN&').press('Tab');
+    //await this.playButton.press('Enter');
+
+    await this.playButton.dispatchEvent("click");
   }
 
   async generateRandomName() {
