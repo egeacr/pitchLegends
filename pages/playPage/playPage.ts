@@ -20,6 +20,8 @@ export class PlayPage extends BasePage {
   }
 
   async openNamePopup() {
+    var box = (await this.playButton.boundingBox())!;
+    await this.page.mouse.click(box.x + box.width / 2, box.y + box.height - 5);
     await this.page.waitForSelector('#playButton', { state: 'visible' });
 
     await this.page.evaluate(() => {
