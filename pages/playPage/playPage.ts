@@ -21,6 +21,16 @@ export class PlayPage extends BasePage {
 
   async openNamePopup() {
     await this.page.waitForSelector('#playButton', { state: 'visible' });
+
+    await this.page.evaluate(() => {
+      const element = document.querySelector('.relative.flex.justify-center.items-center.p-0');
+      if (element) {
+        element.classList.remove('consistently-get-big-and-small');
+      } else {
+        console.error('Element not found!');
+      }
+    });
+
     await this.page.getByText('9Play0ArenaBURN&').press('Tab');
     await this.playButton.press('Enter');
   }
