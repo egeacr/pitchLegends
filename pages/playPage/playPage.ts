@@ -58,7 +58,6 @@ export class PlayPage extends BasePage {
         // await this.playButton.dispatchEvent("click");
     */
         await expect(async () => {
-          this.page.waitForTimeout(50000)
           await this.playButton.dispatchEvent("click");
           await expect(this.page.getByText("RANDOM")).toBeVisible();
         }).toPass({
