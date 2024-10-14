@@ -12,6 +12,13 @@ export class IntroductionPage extends BasePage {
   private innerNextButton: Locator;
   private okayButton: Locator;
   private diamondButton: Locator;
+  private endTurnButton: Locator;
+  private endTurnButtonPopUp: Locator;
+  private highestScoreWinsPopUp: Locator;
+  private eachCardAddsScorePopUp: Locator;
+  private only2EnergyPopup: Locator;
+  private win2OutOf3PopUp : Locator;
+
 
   constructor(page: Page) {
     super(page);
@@ -25,6 +32,13 @@ export class IntroductionPage extends BasePage {
     this.innerNextButton = page.getByText("NEXT");
     this.okayButton = page.getByText("OKAY");
     this.diamondButton = page.getByRole("img", { name: "card" });
+    this.endTurnButton= page.locator("xpath = /html/body/div[4]/div/div[3]/div/div[2]/div[3]/div[2]");
+    this.endTurnButtonPopUp = page.getByText("NOW PRESS THE END TURN BUTTON");
+    this.highestScoreWinsPopUp = page.getByText("HIGHEST SCORE WINS");
+    this.eachCardAddsScorePopUp = page.getByText("EACH CARD ADDS SCORE");
+    this.only2EnergyPopup = page.getByText("YOU CAN ONLY PLAY CARDS WITH AN ENERGY LEVEL OF 2 OR LESS");
+    this.win2OutOf3PopUp = page.getByText("WIN 2 OUT OF 3 ZONES");
+
   }
 
   async isIntroductionPageOpened() {

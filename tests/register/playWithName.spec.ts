@@ -31,4 +31,11 @@ test.describe("Register Tests", async () => {
     // await playPage.confirmRandomName();
     // await gamePage.confirmGameStart();
   });
+
+  test.skip("Delete Account Before Exit", async ({ playPage, gamePage }) => {
+    await playPage.openNamePopup(); //opens up name genrator pop up window and checks for elements visible
+    await playPage.fillName();
+    await playPage.confirmRandomName();
+    await playPage.deleteAccount();
+  });
 });
