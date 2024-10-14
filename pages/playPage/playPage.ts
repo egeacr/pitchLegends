@@ -8,11 +8,13 @@ export class PlayPage extends BasePage {
   private confirmButton: Locator;
   private nameInputField: Locator;
   private enterNameText: Locator;
+  private playButton2: Locator;
 
   constructor(page: Page) {
     super(page);
     this.page = page;
     this.playButton = page.locator("#playButton");
+    this.playButton2 = page.locator('xpath=//*[@id="playButton"]/img[2]');
     this.randomNameButton = page.getByRole("button", { name: "RANDOM" });
     this.nameInputField = page.getByPlaceholder("...");
     this.confirmButton = page.getByRole("button", { name: "CONFIRM" });
@@ -22,16 +24,34 @@ export class PlayPage extends BasePage {
   async openNamePopup() {
     // var box = (await this.playButton.boundingBox())!;
     // await this.page.mouse.click(box.x + box.width / 2, box.y + box.height - 5);
-    await this.page.waitForSelector('#playButton', { state: 'visible' });
-    
+    await this.waitPageLoad();
 
-    await this.page.evaluate(() => {
-      const button = document.querySelector('#playButton');
-      button.style.zIndex = '9999';
-      button.style.visibility = 'visible';
-      button.style.opacity = '1';
-     // button.click();
-    });
+    await expect(async () => {
+        await this.waitPageLoad();
+        await this.page.waitForSelector('#playButton', { state: 'visible' });
+        // Click the button
+        await this.page.$eval('#playButton', (element: HTMLElement) => {
+            const event = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+            });
+            element.dispatchEvent(event);
+        });
+        //await this.playButton2.dispatchEvent("click");
+        await expect(this.page.getByText("RANDOM")).toBeVisible();
+      }).toPass({
+        intervals: [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
+      });
+
+
+    // await this.page.evaluate(() => {
+    //   const button = document.querySelector("#playButton");
+    //   button.style.zIndex = "9999";
+    //   button.style.visibility = "visible";
+    //   button.style.opacity = "1";
+    //   // button.click();
+    // });
 
     /*
         await this.page.evaluate(() => {
@@ -57,12 +77,7 @@ export class PlayPage extends BasePage {
     
         // await this.playButton.dispatchEvent("click");
     */
-        await expect(async () => {
-          await this.playButton.dispatchEvent("click");
-          await expect(this.page.getByText("RANDOM")).toBeVisible();
-        }).toPass({
-          intervals: [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
-        });
+
   }
 
   async generateRandomName() {
