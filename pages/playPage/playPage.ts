@@ -26,50 +26,29 @@ export class PlayPage extends BasePage {
     // await this.page.mouse.click(box.x + box.width / 2, box.y + box.height - 5);
     await this.waitPageLoad();
 
+
+    await this.page.evaluate(() => {
+      const element = document.querySelector('.relative.flex.justify-center.items-center.p-0.consistently-get-big-and-small') as HTMLElement;
+
+      if (element) {
+        console.error('Element found!');
+        element.removeAttribute('style');
+      } else {
+        console.error('Element not found!');
+      }
+    });
+
+
     await expect(async () => {
-        await this.waitPageLoad();
-        await this.page.waitForSelector('#playButton', { state: 'visible' });
-        // Click the button
-        await this.playButton2.click({ force: true });
-        //await this.playButton2.dispatchEvent("click");
-        await expect(this.page.getByText("RANDOM")).toBeVisible();
-      }).toPass({
-        intervals: [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
-      });
-
-
-    // await this.page.evaluate(() => {
-    //   const button = document.querySelector("#playButton");
-    //   button.style.zIndex = "9999";
-    //   button.style.visibility = "visible";
-    //   button.style.opacity = "1";
-    //   // button.click();
-    // });
-
-    /*
-        await this.page.evaluate(() => {
-          // const element = document.querySelector('.relative.flex.justify-center.items-center.p-0');
-          this.page.waitForTimeout(5000)
-    
-          const element = document.querySelector('.box-shadow:0px 0px 1000px 1000px rgba(0, 0, 0, 0.7))');
-    
-          //const element2 = document.querySelector('.box-shadow:0px 0px 1000px 1000px rgba(0, 0, 0, 0.7), inset 0px 20px 30px rgba(0, 0, 0, 0.7);filter:brightness(1.5);z-index:2');
-          //style="box-shadow:0px 0px 1000px 1000px rgba(0, 0, 0, 0.7))"
-    
-          if (element) {
-            element.classList.remove('0px 0px 1000px 1000px rgba(0, 0, 0, 0.7))');
-            // element2.classList.remove('consistently-get-big-and-small');
-    
-          } else {
-            console.error('Element not found!');
-          }
-        });
-    
-        //await this.page.getByText('9Play0ArenaBURN&').press('Tab');
-        //await this.playButton.press('Enter');
-    
-        // await this.playButton.dispatchEvent("click");
-    */
+      await this.waitPageLoad();
+      await this.page.waitForSelector('#playButton', { state: 'visible' });
+      // Click the button
+      // await this.playButton2.click({ force: true });
+      await this.playButton.dispatchEvent("click");
+      await expect(this.page.getByText("RANDOM")).toBeVisible();
+    }).toPass({
+      intervals: [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
+    });
 
   }
 
