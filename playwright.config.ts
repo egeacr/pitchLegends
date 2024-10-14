@@ -27,7 +27,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'https://pitchlegends.com/',
     launchOptions: {
-      slowMo: 500,
+      slowMo: 1000,
       headless: false
     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -43,8 +43,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         launchOptions: {
-          args: ['--disable-features=IsolateOrigins,site-per-process', '--disable-blink-features=AutomationControlled'],
-          slowMo: 1000,
+          args: ['--disable-popup-blocking', '--disable-features=IsolateOrigins,site-per-process', '--disable-blink-features=AutomationControlled'], 
           env: {},
           channel: '',
         },
