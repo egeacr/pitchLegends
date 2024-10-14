@@ -147,28 +147,43 @@ export class PlayPage extends BasePage {
 
   async openNamePopup() {
     await this.playButton.waitFor();
+
+    // isteği intercept et
+    await this.page.route('**/api/endpoint', async (route, request) => {
+      console.log('Intercepted request:', request.url());
+      await route.continue();
+    });
+
     await expect(async () => {
-      if (
-        (await this.playButton2.isVisible()) &&
-        (await this.playButton2.isEnabled())
-      ) {
-        var box = (await this.playButton2.boundingBox())!;
-        await this.page.mouse.click(box.x + box.width / 2, box.y + box.height - 5);
-        await this.playButton2.click({ force: true });
+      if (await this.playButton.isVisible() && await this.playButton.isEnabled()) {
+        await this.playButton.click({ force: true }); 
       } else {
         console.error("Play button is not visible or enabled.");
       }
-      await expect(this.nameInputField.isVisible());
     }).toPass({
       // Probe, wait 1s, probe, wait 2s, probe, wait 10s, probe, wait 10s, probe
-      // ... Defaults to [100, 250, 500, 1000].
       intervals: [1_000, 1_000, 1_000, 1_000, 1_000, 1_000, 1_000],
       timeout: 60_000,
     });
+
+    await this.page.waitForTimeout(2000);
+
+    await this.generateRandomName()
+
+    await this.confirmRandomName()
+
+
+    await this.page.waitForResponse(response =>
+      response.url() === 'https://backend.pitchlegends.com/graphql' && response.status() === 200
+
+
+
+    );
   }
 
+
   async generateRandomName() {
-    await this.openNamePopup();
+
     await this.randomNameButton.click();
     await expect(this.nameInputField).not.toBeEmpty();
   }
