@@ -50,6 +50,20 @@ export class PlayPage extends BasePage {
     });
 
 
+
+    //Remove 9999 zindex element
+    await this.page.evaluate(() => {
+      const element = document.querySelector('[style*="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;"]') as HTMLElement;
+
+      if (element) {
+        console.log('Element found! Removing style...');
+        element.removeAttribute('style');
+      } else {
+        console.error('Element not found!');
+      }
+    });
+
+
     // DElete  glow-effect-purple
     await this.page.evaluate(() => {
       const element = document.querySelector('.absolute.glow-effect-purple') as HTMLElement;
@@ -113,6 +127,24 @@ export class PlayPage extends BasePage {
     // Try to force the click
     await this.playButton.click({ force: true });
 
+
+
+    //Pop-Up
+    await this.page.waitForSelector('.fixed.top-0.left-0.w-full.min-h-screen.justify-center.items-center.flex.bg-black.bg-opacity-50.px-4.invisible-to-visible-opacity', { state: 'visible' });
+
+    await this.page.evaluate(() => {
+      const popup = document.querySelector('.fixed.top-0.left-0.w-full.min-h-screen.justify-center.items-center.flex.bg-black.bg-opacity-50.px-4.invisible-to-visible-opacity') as HTMLElement;
+
+      if (popup) {
+        console.log('Pop-up found! Checking styles...');
+
+        // Z-index kontrolü
+        const zIndex = window.getComputedStyle(popup).getPropertyValue('z-index');
+        console.log('Current z-index:', zIndex);
+      } else {
+        console.error('Pop-up not found!');
+      }
+    });
 
     await expect(this.page.getByText("RANDOM")).toBeVisible();
 
