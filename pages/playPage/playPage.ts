@@ -55,36 +55,56 @@ export class PlayPage extends BasePage {
       const element = document.querySelector('.absolute.glow-effect-purple') as HTMLElement;
 
       if (element) {
-        console.error('Element found! Classes before removal:', element.className); // Log current classes
+        console.error('Element found! Classes before removal:', element.className);
 
         // Clear all classes
         while (element.classList.length > 0) {
           element.classList.remove(element.classList.item(0)!); // Remove the first class repeatedly
         }
 
-        console.error('Classes after removal:', element.className); // Log classes after removal
+        console.error('Classes after removal:', element.className);
       } else {
         console.error('Element not found!');
       }
     });
 
- // DElete  glow-effect-yellow
+    // DElete  glow-effect-yellow
     await this.page.evaluate(() => {
       const element = document.querySelector('.absolute.glow-effect-yellow') as HTMLElement;
 
       if (element) {
-        console.error('Element found! Classes before removal:', element.className); // Log current classes
+        console.error('Element found! Classes before removal:', element.className);
 
         // Clear all classes
         while (element.classList.length > 0) {
           element.classList.remove(element.classList.item(0)!); // Remove the first class repeatedly
         }
 
-        console.error('Classes after removal:', element.className); // Log classes after removal
+        console.error('Classes after removal:', element.className);
       } else {
         console.error('Element not found!');
       }
     });
+
+
+    //Delete button
+    await this.page.waitForSelector('.relative.flex.justify-center.items-center.cursor-pointer', { state: 'visible' });
+
+    await this.page.evaluate(() => {
+      const elements = document.querySelectorAll('.relative.flex.justify-center.items-center.cursor-pointer') as NodeListOf<HTMLElement>;
+
+      if (elements.length > 0) {
+        console.error(`Found ${elements.length} elements! Removing...`);
+        elements.forEach(element => {
+          element.remove();
+        });
+      } else {
+        console.error('No elements found!');
+      }
+    });
+
+
+
 
     await this.page.waitForTimeout(3000);
     await this.page.waitForSelector('#playButton', { state: 'visible' });
