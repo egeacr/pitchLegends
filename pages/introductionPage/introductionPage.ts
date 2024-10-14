@@ -63,6 +63,10 @@ export class IntroductionPage extends BasePage {
   async clickOnDiamond() {
     await this.diamondButton.click();
   }
+
+  async waitForDiamond(){
+    await this.diamondButton.waitFor();
+  }
   async getHeaderText() {
     return await this.textHeader.textContent();
   }

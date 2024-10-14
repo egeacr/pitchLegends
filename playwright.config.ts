@@ -42,9 +42,6 @@ export default defineConfig({
       name: 'chromium',
       use: {
         launchOptions: {
-          args: ['--disable-popup-blocking',
-            '--disable-features=IsolateOrigins,site-per-process',
-            '--disable-blink-features=AutomationControlled']
         }
       },
     },

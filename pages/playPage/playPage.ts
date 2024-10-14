@@ -125,8 +125,19 @@ export class PlayPage extends BasePage {
   }
 
   async openNamePopup(){
-    await this.playButton.waitFor();
-    await this.playButton.click();
+    await expect(async () => {
+        if (await this.playButton.isVisible() && await this.playButton.isEnabled()) {
+            await this.playButton.click({ force: true });
+          } else {
+            console.error("Play button is not visible or enabled.");
+          }
+        await expect(this.page.getByText('RANDOM')).toBeVisible();
+      }).toPass({
+        // Probe, wait 1s, probe, wait 2s, probe, wait 10s, probe, wait 10s, probe
+        // ... Defaults to [100, 250, 500, 1000].
+        intervals: [1_000, 1_000, 1_000 , 1_000, 1_000 , 1_000, 1_000],
+        timeout: 60_000
+      });
     // const dialogPromise = await this.page.waitForEvent('dialog');
     // const dialog = await dialogPromise;
     // console.log(dialog.message());
