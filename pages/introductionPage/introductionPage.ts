@@ -97,18 +97,17 @@ export class IntroductionPage extends BasePage {
     return await this.textHeader.textContent();
   }
 
-
-  async dragAndDropFirstCard(){
+  async dragAndDropFirstCard() {
     await this.itemToBeDragged.waitFor();
-    await this.itemToBeDraggedTo.waitFor(); // test ederken gorunebilirlik olsun diye ekledim . cok hizli yapiyor yoksa
+    await this.itemToBeDraggedTo.waitFor();
     await this.itemToBeDragged.dragTo(this.itemToBeDraggedTo);
   }
 
-  async checkEndTurnPopUp(){
+  async checkEndTurnPopUp() {
     await expect(this.endTurnButtonPopUp).toBeVisible();
   }
 
-  async waitFor(){
+  async waitFor() {
     await this.page.waitForTimeout(5000);
   }
 }
