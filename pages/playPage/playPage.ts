@@ -149,13 +149,14 @@ export class PlayPage extends BasePage {
     await this.playButton.waitFor();
     await expect(async () => {
       if (
-        (await this.playButton.isVisible()) &&
-        (await this.playButton.isEnabled())
+        (await this.playButton2.isVisible()) &&
+        (await this.playButton2.isEnabled())
       ) {
         await this.playButton2.click({ force: true });
       } else {
         console.error("Play button is not visible or enabled.");
       }
+      await expect(this.nameInputField.isVisible());
     }).toPass({
       // Probe, wait 1s, probe, wait 2s, probe, wait 10s, probe, wait 10s, probe
       // ... Defaults to [100, 250, 500, 1000].
