@@ -17,8 +17,10 @@ export class IntroductionPage extends BasePage {
   private highestScoreWinsPopUp: Locator;
   private eachCardAddsScorePopUp: Locator;
   private only2EnergyPopup: Locator;
-  private win2OutOf3PopUp : Locator;
+  private win2OutOf3PopUp: Locator;
 
+  private itemToBeDragged: Locator;
+  private itemToBeDraggedTo: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -32,13 +34,23 @@ export class IntroductionPage extends BasePage {
     this.innerNextButton = page.getByText("NEXT");
     this.okayButton = page.getByText("OKAY");
     this.diamondButton = page.getByRole("img", { name: "card" });
-    this.endTurnButton= page.locator("xpath = /html/body/div[4]/div/div[3]/div/div[2]/div[3]/div[2]");
+    this.endTurnButton = page.locator(
+      "xpath = /html/body/div[4]/div/div[3]/div/div[2]/div[3]/div[2]"
+    );
     this.endTurnButtonPopUp = page.getByText("NOW PRESS THE END TURN BUTTON");
     this.highestScoreWinsPopUp = page.getByText("HIGHEST SCORE WINS");
     this.eachCardAddsScorePopUp = page.getByText("EACH CARD ADDS SCORE");
-    this.only2EnergyPopup = page.getByText("YOU CAN ONLY PLAY CARDS WITH AN ENERGY LEVEL OF 2 OR LESS");
+    this.only2EnergyPopup = page.getByText(
+      "YOU CAN ONLY PLAY CARDS WITH AN ENERGY LEVEL OF 2 OR LESS"
+    );
     this.win2OutOf3PopUp = page.getByText("WIN 2 OUT OF 3 ZONES");
 
+    this.itemToBeDragged = page.locator(
+      "xpath = /html/body/div[4]/div/div[3]/div/div[1]/div[1]/div/div/img[2]"
+    );
+    this.itemToBeDraggedTo = page.locator(
+      "xpath = /html/body/div[4]/div/div[2]/div/div[1]/div/div[1]"
+    );
   }
 
   async isIntroductionPageOpened() {
@@ -78,10 +90,25 @@ export class IntroductionPage extends BasePage {
     await this.diamondButton.click();
   }
 
-  async waitForDiamond(){
+  async waitForDiamond() {
     await this.diamondButton.waitFor();
   }
   async getHeaderText() {
     return await this.textHeader.textContent();
+  }
+
+
+  async dragAndDropFirstCard(){
+    await this.itemToBeDragged.waitFor();
+    await this.itemToBeDraggedTo.waitFor(); // test ederken gorunebilirlik olsun diye ekledim . cok hizli yapiyor yoksa
+    await this.itemToBeDragged.dragTo(this.itemToBeDraggedTo);
+  }
+
+  async checkEndTurnPopUp(){
+    await expect(this.endTurnButtonPopUp).toBeVisible();
+  }
+
+  async waitFor(){
+    await this.page.waitForTimeout(5000);
   }
 }

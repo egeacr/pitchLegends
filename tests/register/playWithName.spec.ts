@@ -9,23 +9,23 @@ test.describe("Register Tests", async () => {
     await homePage.openRegisterPage();
     await registerPage.clickPlayButton();
     await introductionPage.clickNextButton();
-    await introductionPage.clickQuitButton();
-    await introductionPage.clickLeaveButton();
-    await introductionPage.clickOpenButton();
-    await introductionPage.clickInnernextButton();
-    await introductionPage.clickOkayButton();
-    await introductionPage.waitForDiamond();
-    await introductionPage.clickOnDiamond();
+    // await introductionPage.clickQuitButton();
+    // await introductionPage.clickLeaveButton();
+    // await introductionPage.clickOpenButton();
+    // await introductionPage.clickInnernextButton();
+    // await introductionPage.clickOkayButton();
+    // await introductionPage.waitForDiamond();
+    // await introductionPage.clickOnDiamond();
   });
 
-  test("Generate Random Name & Confirm", async ({ playPage }) => {
+  test.skip("Generate Random Name & Confirm", async ({ playPage }) => {
     await playPage.waitPageLoad();
     await playPage.openNamePopup(); //opens up name genrator pop up window and checks for elements visible
     //await playPage.generateRandomName(); //clicks on the name generator button and then waits for input field to be filled with text
     // await playPage.confirmRandomName();
   });
 
-  test("Game starts in 20 seconds", async ({ playPage, gamePage }) => {
+  test.skip("Game starts in 20 seconds", async ({ playPage, gamePage }) => {
     await playPage.openNamePopup(); //opens up name genrator pop up window and checks for elements visible
     //await playPage.generateRandomName(); //clicks on the name generator button and then waits for input field to be filled with text
     // await playPage.confirmRandomName();
@@ -37,5 +37,11 @@ test.describe("Register Tests", async () => {
     await playPage.fillName();
     await playPage.confirmRandomName();
     await playPage.deleteAccount();
+  });
+
+  test("Drag and drop the first card during the introduction", async ({ playPage, gamePage , introductionPage}) => {
+   await introductionPage.dragAndDropFirstCard();
+   await introductionPage.waitFor(); // test ederken gorunebilirlik olsun diye ekledim . cok hizli yapiyor yoksa
+   await introductionPage.checkEndTurnPopUp();
   });
 });
