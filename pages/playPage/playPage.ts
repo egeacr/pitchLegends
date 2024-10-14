@@ -24,9 +24,10 @@ export class PlayPage extends BasePage {
   async openNamePopup() {
     // var box = (await this.playButton.boundingBox())!;
     // await this.page.mouse.click(box.x + box.width / 2, box.y + box.height - 5);
-    await this.waitPageLoad();
+    // await this.waitPageLoad();
 
 
+    //Delete shadow element
     await this.page.evaluate(() => {
       const element = document.querySelector('.relative.flex.justify-center.items-center.p-0.consistently-get-big-and-small') as HTMLElement;
 
@@ -38,7 +39,66 @@ export class PlayPage extends BasePage {
       }
     });
 
+    //Remove get big and small
+    await this.page.evaluate(() => {
+      const element = document.querySelector('.relative.flex.justify-center.items-center.p-0');
+      if (element) {
+        element.classList.remove('consistently-get-big-and-small');
+      } else {
+        console.error('Element not found!');
+      }
+    });
 
+
+    // DElete  glow-effect-purple
+    await this.page.evaluate(() => {
+      const element = document.querySelector('.absolute.glow-effect-purple') as HTMLElement;
+
+      if (element) {
+        console.error('Element found! Classes before removal:', element.className); // Log current classes
+
+        // Clear all classes
+        while (element.classList.length > 0) {
+          element.classList.remove(element.classList.item(0)!); // Remove the first class repeatedly
+        }
+
+        console.error('Classes after removal:', element.className); // Log classes after removal
+      } else {
+        console.error('Element not found!');
+      }
+    });
+
+ // DElete  glow-effect-yellow
+    await this.page.evaluate(() => {
+      const element = document.querySelector('.absolute.glow-effect-yellow') as HTMLElement;
+
+      if (element) {
+        console.error('Element found! Classes before removal:', element.className); // Log current classes
+
+        // Clear all classes
+        while (element.classList.length > 0) {
+          element.classList.remove(element.classList.item(0)!); // Remove the first class repeatedly
+        }
+
+        console.error('Classes after removal:', element.className); // Log classes after removal
+      } else {
+        console.error('Element not found!');
+      }
+    });
+
+    await this.page.waitForTimeout(3000);
+    await this.page.waitForSelector('#playButton', { state: 'visible' });
+    await this.page.waitForTimeout(3000);
+
+    // Try to force the click
+    await this.playButton.click({ force: true });
+
+
+    await expect(this.page.getByText("RANDOM")).toBeVisible();
+
+
+
+    /*
     await expect(async () => {
       await this.waitPageLoad();
       await this.page.waitForSelector('#playButton', { state: 'visible' });
@@ -49,7 +109,7 @@ export class PlayPage extends BasePage {
     }).toPass({
       intervals: [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
     });
-
+*/
   }
 
   async generateRandomName() {

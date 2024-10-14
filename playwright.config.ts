@@ -26,11 +26,14 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'https://pitchlegends.com/',
-
+    launchOptions: {
+      slowMo: 500,
+      headless: false
+    },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     //trace: 'on-first-retry',
     screenshot: "only-on-failure",
-    video: "retain-on-failure"
+    video: "on"
   },
 
   /* Configure projects for major browsers */
