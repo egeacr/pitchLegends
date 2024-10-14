@@ -152,6 +152,8 @@ export class PlayPage extends BasePage {
         (await this.playButton2.isVisible()) &&
         (await this.playButton2.isEnabled())
       ) {
+        var box = (await this.playButton2.boundingBox())!;
+        await this.page.mouse.click(box.x + box.width / 2, box.y + box.height - 5);
         await this.playButton2.click({ force: true });
       } else {
         console.error("Play button is not visible or enabled.");
