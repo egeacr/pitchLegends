@@ -28,7 +28,7 @@ export default defineConfig({
     baseURL: 'https://pitchlegends.com/',
     launchOptions: {
       slowMo: 1000,
-      headless: false
+      headless: true
     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     //trace: 'on-first-retry',
