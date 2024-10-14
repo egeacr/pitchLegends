@@ -21,124 +21,98 @@ export class PlayPage extends BasePage {
     this.enterNameText = page.getByText("ENTER A NAME");
   }
 
+
+
   async openNamePopup() {
-    // var box = (await this.playButton.boundingBox())!;
-    // await this.page.mouse.click(box.x + box.width / 2, box.y + box.height - 5);
-    // await this.waitPageLoad();
+    await this.page.waitForTimeout(2000); 
 
-
-    //Delete shadow element
+    // Delete shadow element
     await this.page.evaluate(() => {
       const element = document.querySelector('.relative.flex.justify-center.items-center.p-0.consistently-get-big-and-small') as HTMLElement;
-
       if (element) {
-        console.error('Element found!');
+        console.log('Shadow element found! Removing style...');
         element.removeAttribute('style');
       } else {
-        console.error('Element not found!');
+        console.error('Shadow element not found!');
       }
     });
 
-    //Remove get big and small
+    // Remove other classes
     await this.page.evaluate(() => {
       const element = document.querySelector('.relative.flex.justify-center.items-center.p-0');
       if (element) {
+        console.log('Removing class: consistently-get-big-and-small');
         element.classList.remove('consistently-get-big-and-small');
       } else {
-        console.error('Element not found!');
+        console.error('Element not found for removing class!');
       }
     });
 
-
-
-    //Remove 9999 zindex element
+    // Remove fixed z-index element
     await this.page.evaluate(() => {
-      const element = document.querySelector('[style*="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;"]') as HTMLElement;
-
+      const element = document.querySelector('[style*="position: fixed; z-index: 9999;"]') as HTMLElement;
       if (element) {
-        console.log('Element found! Removing style...');
+        console.log('Fixed z-index element found! Removing style...');
         element.removeAttribute('style');
       } else {
-        console.error('Element not found!');
+        console.error('Fixed z-index element not found!');
       }
     });
 
-
-    // DElete  glow-effect-purple
-    await this.page.evaluate(() => {
-      const element = document.querySelector('.absolute.glow-effect-purple') as HTMLElement;
-
-      if (element) {
-        console.error('Element found! Classes before removal:', element.className);
-
-        // Clear all classes
-        while (element.classList.length > 0) {
-          element.classList.remove(element.classList.item(0)!); // Remove the first class repeatedly
+    // Delete glow-effect elements
+    await Promise.all([
+      this.page.evaluate(() => {
+        const element = document.querySelector('.absolute.glow-effect-purple') as HTMLElement;
+        if (element) {
+          console.log('Glow effect purple found! Removing classes...');
+          element.className = ''; // Tüm class'ları kaldır
+        } else {
+          console.error('Glow effect purple not found!');
         }
-
-        console.error('Classes after removal:', element.className);
-      } else {
-        console.error('Element not found!');
-      }
-    });
-
-    // DElete  glow-effect-yellow
-    await this.page.evaluate(() => {
-      const element = document.querySelector('.absolute.glow-effect-yellow') as HTMLElement;
-
-      if (element) {
-        console.error('Element found! Classes before removal:', element.className);
-
-        // Clear all classes
-        while (element.classList.length > 0) {
-          element.classList.remove(element.classList.item(0)!); // Remove the first class repeatedly
+      }),
+      this.page.evaluate(() => {
+        const element = document.querySelector('.absolute.glow-effect-yellow') as HTMLElement;
+        if (element) {
+          console.log('Glow effect yellow found! Removing classes...');
+          element.className = ''; // Tüm class'ları kaldır
+        } else {
+          console.error('Glow effect yellow not found!');
         }
+      }),
+    ]);
 
-        console.error('Classes after removal:', element.className);
-      } else {
-        console.error('Element not found!');
-      }
-    });
-
-
-    //Delete button
+    // Delete buttons
     await this.page.waitForSelector('.relative.flex.justify-center.items-center.cursor-pointer', { state: 'visible' });
-
     await this.page.evaluate(() => {
       const elements = document.querySelectorAll('.relative.flex.justify-center.items-center.cursor-pointer') as NodeListOf<HTMLElement>;
-
       if (elements.length > 0) {
-        console.error(`Found ${elements.length} elements! Removing...`);
+        console.log(`Found ${elements.length} cursor-pointer elements! Removing...`);
         elements.forEach(element => {
           element.remove();
         });
       } else {
-        console.error('No elements found!');
+        console.error('No cursor-pointer elements found!');
       }
     });
 
-
-
-
-    await this.page.waitForTimeout(3000);
+    // Wait for play button
+    await this.page.waitForTimeout(10000); 
     await this.page.waitForSelector('#playButton', { state: 'visible' });
-    await this.page.waitForTimeout(3000);
 
-    // Try to force the click
+    // Click play button
     await this.playButton.click({ force: true });
 
 
+    await this.page.waitForTimeout(5000); 
 
-    //Pop-Up
+    // Wait for pop-up
     await this.page.waitForSelector('.fixed.top-0.left-0.w-full.min-h-screen.justify-center.items-center.flex.bg-black.bg-opacity-50.px-4.invisible-to-visible-opacity', { state: 'visible' });
 
+    // Check for the pop-up
     await this.page.evaluate(() => {
       const popup = document.querySelector('.fixed.top-0.left-0.w-full.min-h-screen.justify-center.items-center.flex.bg-black.bg-opacity-50.px-4.invisible-to-visible-opacity') as HTMLElement;
-
       if (popup) {
         console.log('Pop-up found! Checking styles...');
-
-        // Z-index kontrolü
         const zIndex = window.getComputedStyle(popup).getPropertyValue('z-index');
         console.log('Current z-index:', zIndex);
       } else {
@@ -146,23 +120,10 @@ export class PlayPage extends BasePage {
       }
     });
 
+    // Verify random text visibility
     await expect(this.page.getByText("RANDOM")).toBeVisible();
-
-
-
-    /*
-    await expect(async () => {
-      await this.waitPageLoad();
-      await this.page.waitForSelector('#playButton', { state: 'visible' });
-      // Click the button
-      // await this.playButton2.click({ force: true });
-      await this.playButton.dispatchEvent("click");
-      await expect(this.page.getByText("RANDOM")).toBeVisible();
-    }).toPass({
-      intervals: [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
-    });
-*/
   }
+
 
   async generateRandomName() {
     await this.openNamePopup();

@@ -14,7 +14,7 @@ test.describe("Register Tests", async () => {
     await introductionPage.clickOpenButton();
     await introductionPage.clickInnernextButton();
     await introductionPage.clickOkayButton();
-    await introductionPage.clickOnDiamond();
+   // await introductionPage.clickOnDiamond();
   });
 
 

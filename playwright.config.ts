@@ -38,7 +38,7 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
+    /* {
       name: 'chromium',
       use: {
         launchOptions: {
@@ -48,17 +48,17 @@ export default defineConfig({
         }
       },
     },
-    /*
+   
         {
           name: 'firefox',
           use: { ...devices['Desktop Firefox'] },
         },
-    
-        {
-          name: 'webkit',
-          use: { ...devices['Desktop Safari'] },
-        },
     */
+        {
+          name: 'Mobile Safari',
+          use: { ...devices['iPhone 14'] },
+        },
+    
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
