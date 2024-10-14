@@ -30,14 +30,12 @@ export class PlayPage extends BasePage {
         await this.waitPageLoad();
         await this.page.waitForSelector('#playButton', { state: 'visible' });
         // Click the button
-        await this.page.$eval('#playButton', (element: HTMLElement) => {
-            const event = new MouseEvent('click', {
-                bubbles: true,
-                cancelable: true,
-                view: window,
-            });
-            element.dispatchEvent(event);
-        });
+        await this.page.evaluate(() => {
+            const button = document.querySelector("#playButton > div");
+            if (button instanceof HTMLElement) {
+              button.click();
+            }
+          });
         //await this.playButton2.dispatchEvent("click");
         await expect(this.page.getByText("RANDOM")).toBeVisible();
       }).toPass({
