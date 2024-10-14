@@ -23,7 +23,7 @@ export class PlayPage extends BasePage {
 
 
 
-  async openNamePopup() {
+  async openName1Popup() {
     await this.page.waitForTimeout(2000); 
 
     // Delete shadow element
@@ -122,6 +122,15 @@ export class PlayPage extends BasePage {
 
     // Verify random text visibility
     await expect(this.page.getByText("RANDOM")).toBeVisible();
+  }
+
+  async openNamePopup(){
+    await this.playButton.waitFor();
+    await this.playButton.click();
+    // const dialogPromise = await this.page.waitForEvent('dialog');
+    // const dialog = await dialogPromise;
+    // console.log(dialog.message());
+    // dialog.accept();
   }
 
 
