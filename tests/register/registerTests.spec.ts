@@ -58,43 +58,6 @@ test.describe('Register Tests', async () => {
         await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Redirect Introduction Page With Play Button', async ({ basePage, registerPage, introductionPage }) => {
-        const expectedUrl = 'https://play.pitchlegends.com/introduction'
-        await registerPage.clickPlayButton()
-        expect(await introductionPage.isIntroductionPageOpened()).toBeTruthy()
-        expect(await introductionPage.getHeaderText()).toEqual(introductionPageTexts.headerText)
-        await basePage.verifyPageURL(expectedUrl)
-    })
-
-    test.skip('Navigation to Game Introduction', async ({ basePage, registerPage, introductionPage }) => {
-        const expectedUrl = 'https://play.pitchlegends.com/game/introduction'
-        await registerPage.clickPlayButton()
-        await introductionPage.clickNextButton()
-        await basePage.verifyPageURL(expectedUrl)
-    })
-
-    test.skip('Return to Home Page', async ({ homePage, basePage, registerPage, introductionPage }) => {
-        const expectedUrl = 'https://pitchlegends.com/'
-        await basePage.navigateBetweenPages(homePage)
-        await introductionPage.clickHomeButton()
-        await basePage.verifyPageURL(expectedUrl)
-    })
-
-    test.skip('Verify Step-Into Page Accessibility', async ({ basePage, registerPage, introductionPage }) => {
-        await registerPage.clickPlayButton()
-        await introductionPage.clickNextButton()
-        await introductionPage.clickQuitButton()
-        await introductionPage.clickLeaveButton()
-    })
-
-    test.skip('Return to Main Page', async ({ homePage, basePage, registerPage, introductionPage }) => {
-        const expectedUrl = 'https://pitchlegends.com/'
-        await basePage.navigateBetweenPages(homePage)
-        await introductionPage.clickHomeButton()
-        await basePage.verifyPageURL(expectedUrl)
-    })
-
-
     test.afterEach(async ({ context }, testInfo) => {
         //await context.close()
         console.log(`Tests - ${testInfo.title} with status =  ${testInfo.status}`)
