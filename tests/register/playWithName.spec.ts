@@ -23,7 +23,9 @@ test.describe("Register Tests", async () => {
     await playPage.fillName();
     await playPage.confirmName();
     await gamePage.confirmGameStart()
-    await playPage.deleteAccount()
+
+    //TODO : 
+    //await playPage.deleteAccount()
   });
 
   test("Verify that Game starts in 20 seconds", async ({ playPage, gamePage }) => {
@@ -38,7 +40,9 @@ test.describe("Register Tests", async () => {
     await playPage.fillName();
     await playPage.confirmName();
     await gamePage.confirmGameStart()
-    await playPage.deleteAccount();
+
+    //TODO :
+    //await playPage.deleteAccount();
   });
 
   test.skip("Verify that Drag and drop the first card during the introduction", async ({ playPage, gamePage, introductionPage }) => {
@@ -46,4 +50,9 @@ test.describe("Register Tests", async () => {
     await introductionPage.waitFor();
     await introductionPage.checkEndTurnPopUp();
   });
+
+  test.afterEach(async ({ context }, testInfo) => {
+    await context.close()
+    console.log(`Tests - ${testInfo.title} with status =  ${testInfo.status}`)
+  })
 });

@@ -7,8 +7,8 @@ import { fakerFunctions } from "../../utils/faker";
 
 test.describe('Register Tests', async () => {
 
-    test.beforeEach(async ({ homePage, registerPage,basePage }) => {
-        
+    test.beforeEach(async ({ homePage, registerPage, basePage }) => {
+
         await basePage.getLocalIP()
         await homePage.openHomePage()
         await homePage.openRegisterPage()
@@ -26,7 +26,7 @@ test.describe('Register Tests', async () => {
     })
 
     test.skip('Login With Google Account', async ({ registerPage, loginPage }) => {
-        
+
         await registerPage.clickGoogleRegisterButton()
         await registerPage.fillEmailAtGoogleRegisterPage(successfulLoginCredentials.MAIL)
         //await registerPage.fillPasswordAtGoogleRegisterPage(successfulLoginCredentials.GOOGLE_MAIL_PASSWORD)
@@ -34,7 +34,7 @@ test.describe('Register Tests', async () => {
 
     })
 
-    test.skip('Open Google Register Page', async ({ registerPage,basePage }) => {
+    test.skip('Open Google Register Page', async ({ registerPage, basePage }) => {
         const expectedPartOfURL = "accounts.google"
         const expectedPageTitle = "Sign in - Google Accounts"
         await registerPage.clickGoogleRegisterButton()
@@ -42,7 +42,7 @@ test.describe('Register Tests', async () => {
         await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Open Facebook Register Page', async ({ registerPage,basePage }) => {
+    test.skip('Open Facebook Register Page', async ({ registerPage, basePage }) => {
         const expectedPartOfURL = "facebook.com"
         const expectedPageTitle = "Log in to Facebook"
         await registerPage.clickFacebookRegisterButton()
@@ -50,7 +50,7 @@ test.describe('Register Tests', async () => {
         await basePage.verifyPageTitle(expectedPageTitle)
     })
 
-    test.skip('Open Apple Register Page', async ({ registerPage,basePage }) => {
+    test.skip('Open Apple Register Page', async ({ registerPage, basePage }) => {
         const expectedPartOfURL = "appleid.apple.com"
         const expectedPageTitle = "Sign in to Apple Account"
         await registerPage.clickAppleRegisterButton()
@@ -99,10 +99,4 @@ test.describe('Register Tests', async () => {
         //await context.close()
         console.log(`Tests - ${testInfo.title} with status =  ${testInfo.status}`)
     })
-
-
-
-
-
-
 })

@@ -15,4 +15,9 @@ test.describe("Intro Page Pop-Up Verifications", async () => {
         await popUpVerify.verifyPopUpDisplay()
     });
 
+    test.afterEach(async ({ context }, testInfo) => {
+        await context.close()
+        console.log(`Tests - ${testInfo.title} with status =  ${testInfo.status}`)
+    })
+
 });
