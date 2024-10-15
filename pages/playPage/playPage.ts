@@ -8,9 +8,9 @@ export class PlayPage extends BasePage {
   private confirmButton: Locator;
   private nameInputField: Locator;
   private enterNameText: Locator;
-  private settingsButton : Locator;
-  private deleteAccountButton :Locator;
-  private deleteButtonPopUp : Locator;
+  private settingsButton: Locator;
+  private deleteAccountButton: Locator;
+  private deleteButtonPopUp: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -29,7 +29,7 @@ export class PlayPage extends BasePage {
     await this.playButton.waitFor();
     await expect(async () => {
       if (await this.playButton.isVisible() && await this.playButton.isEnabled()) {
-        await this.playButton.click({ force: true }); 
+        await this.playButton.click({ force: true });
       } else {
         console.error("Play button is not visible or enabled.");
       }
@@ -57,16 +57,16 @@ export class PlayPage extends BasePage {
     await this.nameInputField.fill("test-foe-account");
   }
 
-  //Ne için kullanıyoruz ?
+  //TODO : Check if needed or not
   async startTheGame() {
     if (await this.playButton.isVisible() && await this.playButton.isEnabled()) {
-        await this.playButton.click({ force: true }); 
-      } else {
-        console.error("Play button is not visible or enabled.");
-      }
+      await this.playButton.click({ force: true });
+    } else {
+      console.error("Play button is not visible or enabled.");
+    }
   }
 
-  async deleteAccount(){
+  async deleteAccount() {
     await this.settingsButton.waitFor();
     await this.settingsButton.click();
     await this.deleteAccountButton.waitFor();

@@ -97,12 +97,14 @@ export class IntroductionPage extends BasePage {
     return await this.textHeader.textContent();
   }
 
+  //TODO : Check if needed or not
   async dragAndDropFirstCard() {
     await this.itemToBeDragged.waitFor();
     await this.itemToBeDraggedTo.waitFor();
     await this.itemToBeDragged.dragTo(this.itemToBeDraggedTo);
   }
 
+  //TODO : Check if needed or not
   async checkEndTurnPopUp() {
     await expect(this.endTurnButtonPopUp).toBeVisible();
   }
