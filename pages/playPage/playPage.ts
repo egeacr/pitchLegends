@@ -9,6 +9,10 @@ export class PlayPage extends BasePage {
   private nameInputField: Locator;
   private enterNameText: Locator;
   private playButton2: Locator;
+  private settingsButton : Locator;
+  private deleteAccountButton :Locator;
+  private deleteButtonPopUp : Locator;
+
 
   constructor(page: Page) {
     super(page);
@@ -19,6 +23,9 @@ export class PlayPage extends BasePage {
     this.nameInputField = page.getByPlaceholder("...");
     this.confirmButton = page.getByRole("button", { name: "CONFIRM" });
     this.enterNameText = page.getByText("ENTER A NAME");
+    this.settingsButton = page.getByRole("button", { name: "Settings" });
+    this.deleteAccountButton = page.getByRole("button", { name: "DELETE ACCOUNT" });
+    this.deleteButtonPopUp = page.getByRole("button", { name: "Delete" });
   }
 
   async openName1Popup() {
@@ -183,7 +190,6 @@ export class PlayPage extends BasePage {
 
 
   async generateRandomName() {
-
     await this.randomNameButton.click();
     await expect(this.nameInputField).not.toBeEmpty();
   }
@@ -194,11 +200,27 @@ export class PlayPage extends BasePage {
   }
 
   async fillName() {
-    await this.nameInputField.fill("test");
+    await this.nameInputField.fill("test-foe-account");
   }
 
   async startTheGame() {
-    await this.playButton.waitFor();
-    await this.playButton.click();
+    if (await this.playButton.isVisible() && await this.playButton.isEnabled()) {
+        await this.playButton.click({ force: true }); 
+      } else {
+        console.error("Play button is not visible or enabled.");
+      }
   }
+
+
+  async deleteAccount(){
+    await this.settingsButton.waitFor();
+    await this.settingsButton.click();
+    await this.deleteAccountButton.waitFor();
+    await this.deleteAccountButton.click();
+    await this.deleteButtonPopUp.waitFor();
+    await this.deleteButtonPopUp.click();
+    await this.waitPageLoad();
+    await this.playButton.waitFor();
+  }
+
 }

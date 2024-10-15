@@ -2,7 +2,7 @@ import { expect } from "../../fixtures/pomFixtures";
 import { test } from "../../fixtures/pomFixtures";
 
 test.describe("Login Test Scenarios", async () => {
-  test.skip("Listening console errors", async ({
+  test("Listening console errors", async ({
     homePage,
     gamePage,
     introductionPage,
@@ -26,15 +26,17 @@ test.describe("Login Test Scenarios", async () => {
 
     //wait for page load
     await homePage.waitPageLoad();
-    
-    await registerPage.clickPlayButton()
 
-    await homePage.waitPageLoad();
-
+    await registerPage.clickPlayButton();
     await introductionPage.clickNextButton();
-
-    await homePage.waitPageLoad();
-
+    await introductionPage.clickQuitButton();
+    await introductionPage.clickLeaveButton();
+    await introductionPage.clickOpenButton();
+    await introductionPage.clickInnernextButton();
+    await introductionPage.clickOkayButton();
+    await introductionPage.waitForDiamond();
+    await introductionPage.clickOnDiamond();
+    await playPage.startTheGame();
 
     // Check if there are any console or page errors
     if (consoleErrors.length > 0 || pageErrors.length > 0) {
