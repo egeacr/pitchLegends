@@ -15,16 +15,18 @@ export class HomePage extends BasePage {
       .nth(2);
   }
 
+  async openHomePage() {
+    await this.page.goto("https://pitchlegends.com/");
+  }
 
+  async clickPlayButton(){
+    await this.firstPlayForFreeButton.waitFor();
+    await this.firstPlayForFreeButton.click();
+  }
 
-    async openHomePage() {
-        await this.page.goto('https://pitchlegends.com/')
-    }
-
-    async openRegisterPage() {
-        await this.firstPlayForFreeButton.waitFor() //waitFor default parameter == 'visible'
-        await this.firstPlayForFreeButton.click()
-        await this.page.waitForURL('**/auth/login')
-    }
+  async openRegisterPage() {
+    await this.firstPlayForFreeButton.waitFor(); //waitFor default parameter == 'visible'
+    await this.firstPlayForFreeButton.click();
+    await this.page.waitForURL("**/auth/login");
+  }
 }
-

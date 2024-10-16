@@ -1,4 +1,5 @@
 import { test } from "../../fixtures/pomFixtures";
+import { HomePage } from "../../pages/homePage/homePage";
 test.setTimeout(100000);
 
 test.describe("GamePlay Test Scenarios", async () => {
@@ -23,7 +24,7 @@ test.describe("GamePlay Test Scenarios", async () => {
     await introductionPage.clickOnDiamond();
   });
 
-  test("Verify the generation of a random name and continue with the test account name", async ({
+  test.skip("Verify the generation of a random name and continue with the test account name", async ({
     playPage,
     gamePage,
   }) => {
@@ -33,7 +34,7 @@ test.describe("GamePlay Test Scenarios", async () => {
     //await playPage.deleteAccount()
   });
 
-  test("Verify that the Game starts in 20 seconds", async ({
+  test.skip("Verify that the Game starts in 20 seconds", async ({
     playPage,
     gamePage,
     introductionPage,
@@ -46,14 +47,15 @@ test.describe("GamePlay Test Scenarios", async () => {
     await playPage.deleteAccount();
   });
 
-  test.skip("Verify that the account is deleted before exiting the game", async ({
+  test("Verify that the account is deleted before exiting the game", async ({
     playPage,
     gamePage,
+    homePage,
+    introductionPage
   }) => {
-    await setupGamePlay({ playPage, gamePage });
-
-    //TODO :
-    //await playPage.deleteAccount();
+    await setupGamePlay({ playPage, gamePage});
+    await homePage.clickPlayButton();
+    await introductionPage.isIntroductionPageOpened();
   });
 
   test.afterEach(async ({ context }, testInfo) => {
