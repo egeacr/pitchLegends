@@ -6,8 +6,8 @@ export class IntroductionPage extends BasePage {
   private textHeader: Locator;
   private nextButton: Locator;
   private homeButton: Locator;
-  private leaveButton: Locator;
-  private quitButton: Locator;
+  private leaveButton: Locator; //can be deleted and moved to game play
+  private quitButton: Locator; //can be deleted and moved to gameplay or more generic class.
   private openButton: Locator;
   private innerNextButton: Locator;
   private okayButton: Locator;
@@ -112,4 +112,5 @@ export class IntroductionPage extends BasePage {
   async waitFor() {
     await this.page.waitForTimeout(5000);
   }
+
 }

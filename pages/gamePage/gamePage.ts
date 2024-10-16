@@ -23,10 +23,18 @@ export class GamePage extends BasePage {
       .filter({ hasText: /^TURN 1\/5$/ })
       .locator("img");
 
-    this.defenceRegion = page.locator("(//div[@class='w-full h-1/3']//*[contains(@class,'bg-green')])[3]")
-    this.middlefieldRegion = page.locator("(//div[@class='w-full h-1/3']//*[contains(@class,'bg-green')])[2]")
-    this.forwardRegion = page.locator("(//div[@class='w-full h-1/3']//*[contains(@class,'bg-green')])[1]")
-    this.allPlayerCards = page.locator("//*[contains(@class,'transition-all')]/div[@role='button']")
+    this.defenceRegion = page.locator(
+      "(//div[@class='w-full h-1/3']//*[contains(@class,'bg-green')])[3]"
+    );
+    this.middlefieldRegion = page.locator(
+      "(//div[@class='w-full h-1/3']//*[contains(@class,'bg-green')])[2]"
+    );
+    this.forwardRegion = page.locator(
+      "(//div[@class='w-full h-1/3']//*[contains(@class,'bg-green')])[1]"
+    );
+    this.allPlayerCards = page.locator(
+      "//*[contains(@class,'transition-all')]/div[@role='button']"
+    );
 
     this.playerInfoMap = new Map();
   }
@@ -37,46 +45,79 @@ export class GamePage extends BasePage {
     await expect(this.vsIcon).toBeVisible({ timeout: 20000 });
   }
 
-  async dragPlayerToSelectedField(playerNumber: number, area: String){
-    await this.page.waitForTimeout(7000)
-    let selectedPlayerName = await this.page.locator("(//*[contains(@class,'transition-all')]/div[@role='button'])["+playerNumber+"]//div[contains(@class,'text')]/p").textContent()
+  async dragPlayerToSelectedField(playerNumber: number, area: String) {
+    await this.page.waitForTimeout(7000);
+    let selectedPlayerName = await this.page
+      .locator(
+        "(//*[contains(@class,'transition-all')]/div[@role='button'])[" +
+          playerNumber +
+          "]//div[contains(@class,'text')]/p"
+      )
+      .textContent();
     this.playerInfoMap.set("selectedPlayerName", selectedPlayerName ?? "");
 
-  console.log("Selected player name is:" +selectedPlayerName )
-    switch(area.toLowerCase()){
+    console.log("Selected player name is:" + selectedPlayerName);
+    switch (area.toLowerCase()) {
       case "defence":
-        await this.allPlayerCards.nth(playerNumber-1).dragTo(this.defenceRegion)
+        await this.allPlayerCards
+          .nth(playerNumber - 1)
+          .dragTo(this.defenceRegion);
         break;
       case "middlefield":
-        await this.allPlayerCards.nth(playerNumber-1).dragTo(this.middlefieldRegion)
+        await this.allPlayerCards
+          .nth(playerNumber - 1)
+          .dragTo(this.middlefieldRegion);
         break;
       case "forward":
-        await this.allPlayerCards.nth(playerNumber-1).dragTo(this.forwardRegion)
+        await this.allPlayerCards
+          .nth(playerNumber - 1)
+          .dragTo(this.forwardRegion);
         break;
       default:
         throw new Error(`Unknown area: ${area}`);
     }
   }
 
-
-
-  async verifyPlayerDraggedToSelectedField(area: String){
+  async verifyPlayerDraggedToSelectedField(area: String) {
     let selectedPlayerName = this.playerInfoMap.get("selectedPlayerName");
-    console.log("player name is= " + selectedPlayerName)
+    console.log("player name is= " + selectedPlayerName);
 
-    switch(area.toLowerCase()){
+    switch (area.toLowerCase()) {
       case "defence":
-        expect(await this.page.locator("(//div[@class='w-full h-1/3'])[3]//p[normalize-space()='"+selectedPlayerName+"']").isVisible()).toBeTruthy()
+        expect(
+          await this.page
+            .locator(
+              "(//div[@class='w-full h-1/3'])[3]//p[normalize-space()='" +
+                selectedPlayerName +
+                "']"
+            )
+            .isVisible()
+        ).toBeTruthy();
         break;
       case "middlefield":
-        expect(await this.page.locator("(//div[@class='w-full h-1/3'])[2]//p[normalize-space()='"+selectedPlayerName+"']").isVisible()).toBeTruthy()
+        expect(
+          await this.page
+            .locator(
+              "(//div[@class='w-full h-1/3'])[2]//p[normalize-space()='" +
+                selectedPlayerName +
+                "']"
+            )
+            .isVisible()
+        ).toBeTruthy();
         break;
       case "forward":
-        expect(await this.page.locator("(//div[@class='w-full h-1/3'])[1]//p[normalize-space()='"+selectedPlayerName+"']").isVisible()).toBeTruthy()
+        expect(
+          await this.page
+            .locator(
+              "(//div[@class='w-full h-1/3'])[1]//p[normalize-space()='" +
+                selectedPlayerName +
+                "']"
+            )
+            .isVisible()
+        ).toBeTruthy();
         break;
       default:
         throw new Error(`Unknown area: ${area}`);
     }
-    
   }
 }
