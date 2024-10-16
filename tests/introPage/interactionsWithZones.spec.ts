@@ -11,10 +11,10 @@ test.describe("Test Scenarios for Interaction with Zone in Intro Page", async ()
 
     });
     test("Verify that the zones are displayed on the Introduction Page", async ({ gamePage, popUpVerify, introductionPage }) => {
-        await gamePage.dragPlayerToSelectedField(1, "forward")
+        await gamePage.dragPlayerToSelectedField(1, "forward-intro")
         await gamePage.verifyPlayerDraggedToSelectedField("forward")
         await popUpVerify.verifyPopUpDisplay()
-        // await gamePage.dragPlayerToSelectedField(4, "middlefield")
+        await gamePage.dragPlayerToSelectedField(4, "middlefield-intro")
         await popUpVerify.clickEndTurnButton()
         await popUpVerify.verifyZonesInteractions()
     });
