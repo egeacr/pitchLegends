@@ -6,9 +6,6 @@ test.describe("GamePlay Test Scenarios", async () => {
     await playPage.waitPageLoad();
     await playPage.openNamePopup();
     await playPage.generateRandomName();
-    await playPage.fillName();
-    await playPage.confirmName();
-    await gamePage.confirmGameStart();
   };
 
 
@@ -26,7 +23,7 @@ test.describe("GamePlay Test Scenarios", async () => {
     await introductionPage.clickOnDiamond();
   });
 
-  test.skip("Verify the generation of a random name and continue with the test account name", async ({
+  test("Verify the generation of a random name and continue with the test account name", async ({
     playPage,
     gamePage,
   }) => {
@@ -42,6 +39,9 @@ test.describe("GamePlay Test Scenarios", async () => {
     introductionPage,
   }) => {
     await setupGamePlay({ playPage, gamePage });
+    await playPage.fillName();
+    await playPage.confirmName();
+    await gamePage.confirmGameStart();
     await playPage.exitGame();
     await playPage.deleteAccount();
   });
