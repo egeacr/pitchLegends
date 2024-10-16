@@ -20,7 +20,7 @@ export class HomePage extends BasePage {
   }
 
   async clickPlayButton(){
-    await this.firstPlayForFreeButton.waitFor();
+    await this.firstPlayForFreeButton.waitFor({ timeout: 10000 });
     await this.firstPlayForFreeButton.click();
   }
 

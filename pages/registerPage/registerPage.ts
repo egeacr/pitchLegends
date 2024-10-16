@@ -154,6 +154,7 @@ export class RegisterPage extends BasePage {
     await this.page.waitForURL("**/introduction");
   }
 
+
   async clickFacebookRegisterButton() {
     await this.facebookRegisterButton.click();
     await this.page.waitForLoadState("networkidle");

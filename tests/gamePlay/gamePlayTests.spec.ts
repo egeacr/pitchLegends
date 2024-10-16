@@ -9,7 +9,6 @@ test.describe("GamePlay Test Scenarios", async () => {
     await playPage.generateRandomName();
   };
 
-
   test.beforeEach(async ({ homePage, registerPage, introductionPage }) => {
     await homePage.openHomePage();
     await homePage.openRegisterPage();
@@ -24,7 +23,7 @@ test.describe("GamePlay Test Scenarios", async () => {
     await introductionPage.clickOnDiamond();
   });
 
-  test.skip("Verify the generation of a random name and continue with the test account name", async ({
+  test("Verify the generation of a random name and continue with the test account name", async ({
     playPage,
     gamePage,
   }) => {
@@ -34,10 +33,11 @@ test.describe("GamePlay Test Scenarios", async () => {
     //await playPage.deleteAccount()
   });
 
-  test.skip("Verify that the Game starts in 20 seconds", async ({
+  test("Verify that the Game starts in 20 seconds", async ({
     playPage,
     gamePage,
     introductionPage,
+    homePage,
   }) => {
     await setupGamePlay({ playPage, gamePage });
     await playPage.fillName();
@@ -45,16 +45,24 @@ test.describe("GamePlay Test Scenarios", async () => {
     await gamePage.confirmGameStart();
     await playPage.exitGame();
     await playPage.deleteAccount();
+    await homePage.clickPlayButton();
+    await introductionPage.isIntroductionPageOpened();
   });
 
   test("Verify that the account is deleted before exiting the game", async ({
     playPage,
     gamePage,
     homePage,
-    introductionPage
+    introductionPage,
+    registerPage,
   }) => {
-    await setupGamePlay({ playPage, gamePage});
-    await homePage.clickPlayButton();
+    await setupGamePlay({ playPage, gamePage });
+    await playPage.fillName();
+    await playPage.confirmName();
+    await gamePage.confirmGameStart();
+    await playPage.exitGame();
+    await playPage.deleteAccount();
+    await registerPage.clickPlayButton();
     await introductionPage.isIntroductionPageOpened();
   });
 
