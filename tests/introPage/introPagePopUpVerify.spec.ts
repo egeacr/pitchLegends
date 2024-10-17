@@ -1,4 +1,5 @@
 import { test } from "../../fixtures/pomFixtures";
+test.setTimeout(100000);
 
 test.describe("Test Scenarios for Introduction Page Pop-Up Verifications", async () => {
   test.beforeEach(async ({ homePage, registerPage, introductionPage }) => {

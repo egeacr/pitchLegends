@@ -25,8 +25,8 @@ export class PlayPage extends BasePage {
     this.confirmButton = page.getByRole("button", { name: "CONFIRM" });
     this.enterNameText = page.getByText("ENTER A NAME");
     this.settingsButton = page.locator("//p[normalize-space()='Settings']");
-    this.deleteAccountButton = page.locator("//p[normalize-space()='Delete Account']");
-    this.deleteButtonPopUp = page.locator("//p[normalize-space()='Delete']");
+    this.deleteAccountButton = page.getByText('DELETE ACCOUNT')
+    this.deleteButtonPopUp = page.getByRole('button', { name: 'Delete' });
     this.defeatText = page.getByText("DEFEAT");
     this.homeButton = page.getByText("HOME");
     this.leaveButton = page.getByRole("button", { name: "Leave" });
@@ -93,6 +93,12 @@ export class PlayPage extends BasePage {
   async deleteAccount() {
     await this.settingsButton.waitFor();
     await this.settingsButton.click({ force: true });
+
+    //scroll
+    await this.page.evaluate(() => {
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
     await this.deleteAccountButton.waitFor();
     await this.deleteAccountButton.click({ force: true });
     await this.deleteButtonPopUp.waitFor();
