@@ -105,6 +105,11 @@ export default class BasePage {
     //Loading Icon Locator = //*[@class='rotating-image']
   }
 
+  async waitUntilElementIsDisappear(element: Locator) {
+    await element.waitFor({state: 'hidden'})
+    //Loading Icon Locator = //*[@class='rotating-image']
+  }
+
 
   async getLocalIP() {
     const nets = networkInterfaces();

@@ -56,6 +56,30 @@ test.describe("GamePlay Test Scenarios", async () => {
     //await playPage.deleteAccount();
   });
 
+  test("Verify that place card defence position", async ({ playPage, gamePage }) => {
+    await setupGamePlay({ playPage, gamePage })
+    await gamePage.dragPlayerToSelectedField(1, "defence-game")
+    await gamePage.verifyPlayerDraggedToSelectedField("defence")
+    //TODO : 
+    //await playPage.deleteAccount()
+  });
+
+  test("Verify that place card middlefield position", async ({ playPage, gamePage }) => {
+    await setupGamePlay({ playPage, gamePage })
+    await gamePage.dragPlayerToSelectedField(1, "middlefield-game")
+    await gamePage.verifyPlayerDraggedToSelectedField("middlefield")
+    //TODO : 
+    //await playPage.deleteAccount()
+  });
+
+  test("Verify that place card forward position", async ({ playPage, gamePage }) => {
+    await setupGamePlay({ playPage, gamePage })
+    await gamePage.dragPlayerToSelectedField(1, "forward-game")
+    await gamePage.verifyPlayerDraggedToSelectedField("middlefield")
+    //TODO : 
+    //await playPage.deleteAccount()
+  });
+
   test.afterEach(async ({ context }, testInfo) => {
     await context.close();
     console.log(`Tests - ${testInfo.title} with status =  ${testInfo.status}`);
