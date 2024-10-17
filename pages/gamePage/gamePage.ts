@@ -15,6 +15,9 @@ export class GamePage extends BasePage {
   private waitingLabel: Locator
   private playingLabel: Locator
   private introductionAllRegion: Locator
+  private introductionForwardZoneRegion: Locator
+  private introductionMiddlefieldZoneRegion: Locator
+  private introductionDefenceZoneRegion: Locator
 
   constructor(page: Page) {
     super(page);
@@ -28,6 +31,10 @@ export class GamePage extends BasePage {
       .filter({ hasText: /^TURN 1\/5$/ })
       .locator("img");
 
+
+    this.introductionForwardZoneRegion = page.locator('.w-1\\/3 > .absolute > .w-full').first()
+    this.introductionMiddlefieldZoneRegion = page.locator('.text-white > div > div:nth-child(2) > div > div').first()
+    this.introductionDefenceZoneRegion = page.locator('.text-white > div > div:nth-child(3) > div > div').first()
 
     this.introductionAllRegion = page.locator("(//div[@class='w-full h-1/3']//*[contains(@class,'bg-green')])[1]")
     this.defenceRegion = page.locator("(//div[@class='w-full h-1/3']//*[contains(@class,'bg-green')])[3]")
@@ -46,33 +53,33 @@ export class GamePage extends BasePage {
   }
 
 
-  async dragPlayerToSelectedField(playerNumber: number, area: String){
+  async dragPlayerToSelectedField(playerNumber: number, area: String) {
     await this.page.waitForTimeout(2500)
-    let selectedPlayerName = await this.page.locator("(//*[contains(@class,'transition-all')]/div[@role='button'])["+playerNumber+"]//div[contains(@class,'text')]/p").textContent()
+    let selectedPlayerName = await this.page.locator("(//*[contains(@class,'transition-all')]/div[@role='button'])[" + playerNumber + "]//div[contains(@class,'text')]/p").textContent()
     this.playerInfoMap.set("selectedPlayerName", selectedPlayerName ?? "");
-    console.log("Selected player name is:" +selectedPlayerName )
+    console.log("Selected player name is:" + selectedPlayerName)
 
 
-    
-    switch(area.toLowerCase()){
+
+    switch (area.toLowerCase()) {
       case "defence-game":
-        await this.allPlayerCards.nth(playerNumber-1).dragTo(this.defenceRegion)
+        await this.allPlayerCards.nth(playerNumber - 1).dragTo(this.defenceRegion)
         break;
       case "middlefield-game":
-        await this.allPlayerCards.nth(playerNumber-1).dragTo(this.middlefieldRegion)
+        await this.allPlayerCards.nth(playerNumber - 1).dragTo(this.middlefieldRegion)
         break;
       case "forward-game":
-        await this.allPlayerCards.nth(playerNumber-1).dragTo(this.forwardRegion)
+        await this.allPlayerCards.nth(playerNumber - 1).dragTo(this.forwardRegion)
         break;
       case "forward-intro":
-          await this.allPlayerCards.nth(playerNumber-1).dragTo(this.introductionAllRegion)
-          break;  
+        await this.allPlayerCards.nth(playerNumber - 1).dragTo(this.introductionForwardZoneRegion)
+        break;
       case "middlefield-intro":
-          await this.allPlayerCards.nth(playerNumber-1).dragTo(this.introductionAllRegion)
-          break;  
+        await this.allPlayerCards.nth(playerNumber - 1).dragTo(this.introductionMiddlefieldZoneRegion)
+        break;
       case "defence-intro":
-          await this.allPlayerCards.nth(playerNumber-1).dragTo(this.introductionAllRegion)
-          break;  
+        await this.allPlayerCards.nth(playerNumber - 1).dragTo(this.introductionDefenceZoneRegion)
+        break;
       default:
         throw new Error(`Unknown area: ${area}`);
     }
@@ -84,14 +91,14 @@ export class GamePage extends BasePage {
 
     switch (area.toLowerCase()) {
       case "defence":
-        expect(await this.page.locator("(//div[@class='w-full h-1/3'])[3]//p[normalize-space()='" + selectedPlayerName +"']").isVisible()).toBeTruthy();
+        expect(await this.page.locator("(//div[@class='w-full h-1/3'])[3]//p[normalize-space()='" + selectedPlayerName + "']").isVisible()).toBeTruthy();
         break;
       case "middlefield":
-        expect(await this.page.locator("(//div[@class='w-full h-1/3'])[2]//p[normalize-space()='" +selectedPlayerName +"']").isVisible()).toBeTruthy();
+        expect(await this.page.locator("(//div[@class='w-full h-1/3'])[2]//p[normalize-space()='" + selectedPlayerName + "']").isVisible()).toBeTruthy();
         break;
       case "forward":
         expect(
-          await this.page.locator("(//div[@class='w-full h-1/3'])[1]//p[normalize-space()='" +selectedPlayerName +"']").isVisible()).toBeTruthy();
+          await this.page.locator("(//div[@class='w-full h-1/3'])[1]//p[normalize-space()='" + selectedPlayerName + "']").isVisible()).toBeTruthy();
         break;
       default:
         throw new Error(`Unknown area: ${area}`);
@@ -104,15 +111,15 @@ export class GamePage extends BasePage {
     let number
 
     for (let i = 1; i <= allPlayers; i++) {
-      if(await this.page.locator("(//*[contains(@class,'transition-all')]/div[@role='button'])["+i+"]//img[contains(@src, 'energy')]/following-sibling::p[text()='"+energyLevel+"']").isVisible()){
-        let ariaDisabledValue = await this.page.locator("(//*[contains(@class,'transition-all')]/div[@role='button'])["+i+"]//img[contains(@src, 'energy')]/following-sibling::p[text()='"+energyLevel+"']//ancestor::div[@role='button']").getAttribute("aria-disabled")
-          if(ariaDisabledValue==='true'){
-            number = i
-          }
-          else
+      if (await this.page.locator("(//*[contains(@class,'transition-all')]/div[@role='button'])[" + i + "]//img[contains(@src, 'energy')]/following-sibling::p[text()='" + energyLevel + "']").isVisible()) {
+        let ariaDisabledValue = await this.page.locator("(//*[contains(@class,'transition-all')]/div[@role='button'])[" + i + "]//img[contains(@src, 'energy')]/following-sibling::p[text()='" + energyLevel + "']//ancestor::div[@role='button']").getAttribute("aria-disabled")
+        if (ariaDisabledValue === 'true') {
+          number = i
+        }
+        else
           continue
       }
-      else{
+      else {
         console.log("Selected player number cannot found!")
       }
     }

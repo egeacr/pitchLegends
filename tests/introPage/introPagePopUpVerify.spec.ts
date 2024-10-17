@@ -13,7 +13,7 @@ test.describe("Test Scenarios for Introduction Page Pop-Up Verifications", async
     popUpVerify,
     introductionPage,
   }) => {
-    await gamePage.dragPlayerToSelectedField(1, "forward");
+    await gamePage.dragPlayerToSelectedField(1, "forward-intro");
     await gamePage.verifyPlayerDraggedToSelectedField("forward");
     await popUpVerify.verifyPopUpDisplay();
   });
