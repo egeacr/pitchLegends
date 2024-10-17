@@ -75,7 +75,7 @@ test.describe("GamePlay Test Scenarios", async () => {
   test("Verify that place card forward position", async ({ playPage, gamePage }) => {
     await setupGamePlay({ playPage, gamePage })
     await gamePage.dragPlayerToSelectedField(1, "forward-game")
-    await gamePage.verifyPlayerDraggedToSelectedField("middlefield")
+    await gamePage.verifyPlayerDraggedToSelectedField("forward")
     //TODO : 
     //await playPage.deleteAccount()
   });

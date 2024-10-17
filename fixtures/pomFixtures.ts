@@ -8,6 +8,7 @@ import { PlayPage } from '../pages/playPage/playPage'
 import { IntroductionPage } from '../pages/introductionPage/introductionPage'
 import { GamePage } from '../pages/gamePage/gamePage'
 import { PopUpVerify } from '../pages/playPage/popUpVerify'
+import { SurveyPage } from '../pages/surveyPage/surveyPage'
 
 
 type pages = {
@@ -19,6 +20,7 @@ type pages = {
     introductionPage: IntroductionPage
     gamePage: GamePage
     popUpVerify: PopUpVerify
+    surveyPage: SurveyPage
 }
 
 const testPages = baseTest.extend<pages>({
@@ -45,6 +47,9 @@ const testPages = baseTest.extend<pages>({
     },
     popUpVerify: async ({ page }, use) => {
         await use(new PopUpVerify(page))
+    },
+    surveyPage: async ({ page }, use) => {
+        await use(new SurveyPage(page))
     }
 })
 
